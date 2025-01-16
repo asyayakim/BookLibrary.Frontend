@@ -5,6 +5,7 @@ export const model = {
         currentBookId: null,
         isLoggedIn: false,
         role: null,
+        filteredBooks: null,
     },
     
 };

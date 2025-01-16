@@ -18,7 +18,7 @@ export async function fetchBooks() {
     }
 }
 
-function renderBooks(books) {
+export function renderBooks(books) {
     contentDiv.innerHTML = '';
     contentDiv.className = 'books-list'
     books.forEach(book => {

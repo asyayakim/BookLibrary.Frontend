@@ -1,5 +1,7 @@
 import { model } from "./model.js";
 import {updateView} from "./main.js";
+import {fetchSearchedBooks} from "./searchingBook.js";
+
 updateView();
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -17,18 +19,27 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 });
 document.addEventListener('DOMContentLoaded', function () {
-    const loginButton = document.querySelector('.search-bar');
-    loginButton.addEventListener('click', function () {
-        model.app.currentPage = "homeLibrary";
-        updateView();
+    const searchForm = document.querySelector('.search-bar');
+    searchForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const searchQuery = searchForm.querySelector('input').value.trim();
+
+        if (searchQuery) {
+            console.log(`Searching for: ${searchQuery}`);
+            fetchSearchedBooks(searchQuery);
+        } else {
+            alert('Please enter a search term.');
+        }
     });
 });
+
 export function updateHeader() {
     const nav = document.querySelector("nav ul");
     nav.innerHTML = `
         <li>
             <form class="search-bar">
                 <input type="text" placeholder="Search for books..." aria-label="Search">
+                <button type="submit">
                 <img src="images/search.svg" width="16" height="16" alt="Search Icon">
             </form>
         </li>

@@ -22,7 +22,9 @@ export function updateView() {
     } else if (page === "adminDashboard") {
         renderAdminDashboard();
     } else if (page === "addBook") {
-        renderAddBookPage();
+        renderAddBookPage(); 
+    // } else if (page === "userInfo") {
+    //     viewUserInfo();
     } else {
         document.getElementById("content").innerHTML = `<h1>Page not found</h1>`;
     }
