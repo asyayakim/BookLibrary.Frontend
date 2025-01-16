@@ -69,14 +69,14 @@ header nav ul li a {
 }
 
 main {
-    flex-grow: 1;
+    flex-grow: 2;
     padding: 2rem;
     text-align: center;
 }
 
 .books-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(4, minmax(200px, 1fr));
     gap: 1.5rem;
 }
 

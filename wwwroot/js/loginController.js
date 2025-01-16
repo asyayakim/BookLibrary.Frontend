@@ -29,6 +29,7 @@ export async function authenticateUser(username, password) {
                 console.log("Logged in as regular user");
                 model.app.currentPage = "homeLibrary";
             }
+            model.app.isLoggedIn = true;
             updateView();
         } else {
             document.getElementById("error").innerText = "Invalid credentials!";

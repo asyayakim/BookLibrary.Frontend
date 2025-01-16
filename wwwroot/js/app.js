@@ -17,15 +17,37 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 });
 
-document.getElementById("adminDashboard").addEventListener("click", () => {
-    model.app.currentPage = "adminDashboard";
+export function updateLoginButton() {
+    const loginButton = document.querySelector('.login-btn');
+
+    if (model.app.isLoggedIn) {
+        loginButton.textContent = "Logout";
+        loginButton.removeEventListener('click', handleLogin);
+        loginButton.addEventListener('click', handleLogout);
+    } else {
+        loginButton.textContent = "Login";
+        loginButton.removeEventListener('click', handleLogout);
+        loginButton.addEventListener('click', handleLogin);
+    }
+}
+document.addEventListener('DOMContentLoaded', function () {
+    updateLoginButton();
     updateView();
 });
 
-document.getElementById("logoutButton").addEventListener("click", () => {
-    model.app.currentPage = "login";
+function handleLogout() {
+    model.app.isLoggedIn = false;
+    alert("User logged out!");
+    updateLoginButton();
+    model.app.currentPage = "homeLibrary";
     updateView();
-});
-
+}
+function handleLogin() {
+    model.app.isLoggedIn = true;
+    model.app.currentPage = "homeLibrary";
+    alert("User logged in!");
+    updateLoginButton();
+    updateView();
+}
 
 
