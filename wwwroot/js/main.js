@@ -5,9 +5,10 @@ import { updateViewRegisterNewUser} from "./registerNewUserView.js";
 import { renderAdminDashboard } from "./adminDashboard.js";
 import { model } from "./model.js";
 import {selectBook} from "./BookPageView.js";
+import {updateHeader} from "./app.js";
 
 export function updateView() {
-    console.log("updateView function is loaded.");
+    updateHeader();
     const page = model.app.currentPage;
 
     if (page === "login") {

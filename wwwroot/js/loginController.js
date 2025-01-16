@@ -20,16 +20,10 @@ export async function authenticateUser(username, password) {
             alert("Login successful!");
             const user = data.user;
             const role = user.role;
-
-            if (role === "admin") {
-                console.log("Logged in as admin");
-                model.app.currentPage = "adminDashboard";
-                
-            } else if (role === "User") {
-                console.log("Logged in as regular user");
-                model.app.currentPage = "homeLibrary";
-            }
             model.app.isLoggedIn = true;
+            model.app.userRole = role;
+
+            model.app.currentPage = role === "admin" ? "adminDashboard" : "homeLibrary";
             updateView();
         } else {
             document.getElementById("error").innerText = "Invalid credentials!";

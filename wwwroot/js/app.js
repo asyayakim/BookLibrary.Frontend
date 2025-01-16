@@ -16,38 +16,41 @@ document.addEventListener('DOMContentLoaded', function () {
     updateView();
 });
 });
-
-export function updateLoginButton() {
-    const loginButton = document.querySelector('.login-btn');
-
-    if (model.app.isLoggedIn) {
-        loginButton.textContent = "Logout";
-        loginButton.removeEventListener('click', handleLogin);
-        loginButton.addEventListener('click', handleLogout);
-    } else {
-        loginButton.textContent = "Login";
-        loginButton.removeEventListener('click', handleLogout);
-        loginButton.addEventListener('click', handleLogin);
-    }
-}
 document.addEventListener('DOMContentLoaded', function () {
-    updateLoginButton();
-    updateView();
+    const loginButton = document.querySelector('.search-bar');
+    loginButton.addEventListener('click', function () {
+        model.app.currentPage = "homeLibrary";
+        updateView();
+    });
 });
-
-function handleLogout() {
+export function updateHeader() {
+    const nav = document.querySelector("nav ul");
+    nav.innerHTML = `
+        <li>
+            <form class="search-bar">
+                <input type="text" placeholder="Search for books..." aria-label="Search">
+                <img src="images/search.svg" width="16" height="16" alt="Search Icon">
+            </form>
+        </li>
+        <li>
+            <button class="${model.app.isLoggedIn ? "logout-btn" : "login-btn"}">
+                ${model.app.isLoggedIn ? "Logout" : "Login"}
+            </button>
+        </li>
+    `;    const button = document.querySelector(model.app.isLoggedIn ? ".logout-btn" : ".login-btn");
+    button.addEventListener("click", model.app.isLoggedIn ? handleLogout : () => {
+        model.app.currentPage = "login";
+        updateView();
+    });
+}
+export function handleLogout() {
     model.app.isLoggedIn = false;
-    alert("User logged out!");
-    updateLoginButton();
-    model.app.currentPage = "homeLibrary";
-    updateView();
+    model.app.userRole = null;
+    localStorage.removeItem("token");
+    model.app.currentPage = "login";
+    alert("Logged out successfully!");
+    updateView(); 
 }
-function handleLogin() {
-    model.app.isLoggedIn = true;
-    model.app.currentPage = "homeLibrary";
-    alert("User logged in!");
-    updateLoginButton();
-    updateView();
-}
+
 
 

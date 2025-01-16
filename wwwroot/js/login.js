@@ -1,6 +1,8 @@
 import {updateView} from "./main.js";
 import {model} from "./model.js";
 import {authenticateUser} from "./loginController.js";
+import {handleLogout} from "./app.js";
+
 export function updateViewLogin() {
     const contentDiv = document.getElementById('content');
     contentDiv.innerHTML = `
@@ -17,19 +19,22 @@ export function updateViewLogin() {
             
         </form>
     `;
-    
 
-    document.getElementById('loginForm').addEventListener('submit', async (event) => {
-        event.preventDefault();
-        const username = document.getElementById('username').value;
-        const password = document.getElementById('password').value;
+    if (model.app.isLoggedIn) {
+        document.getElementById("logoutButton").addEventListener("click", handleLogout);
+    } else {
+        document.getElementById("loginForm").addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
 
-        authenticateUser(username, password);
-    });
-    const registerButton = document.getElementById('registrationButton');
-    registerButton.addEventListener('click',async (event) => {
-        event.preventDefault();
-        model.app.currentPage = "registration";
-        updateView();
-    });
+            await authenticateUser(username, password);
+        });
+        const registerButton = document.getElementById('registrationButton');
+        registerButton.addEventListener('click', async (event) => {
+            event.preventDefault();
+            model.app.currentPage = "registration";
+            updateView();
+        });
+    }
 }
