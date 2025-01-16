@@ -20,18 +20,17 @@ export async function fetchBooks() {
 
 function renderBooks(books) {
     contentDiv.innerHTML = '';
+    contentDiv.className = 'books-list'
     books.forEach(book => {
         const bookDiv = document.createElement('div');
         bookDiv.className = 'book';
+        let truncatedTitle = book.title.length > 20 ? book.title.substring(0, 20) + '...' : book.title;
         bookDiv.innerHTML = `
-        
+
         <img src="${book.coverImageUrl}" alt="${book.title}" style="width:100%; height:auto; border-radius:5px; margin-bottom:10px;">
             <div class="book-info">
-                <h3>${book.title}</h3>
+                <h3 title="${book.title}">${truncatedTitle}</h3>
                 <p><strong>Author:</strong> ${book.author}</p>
-                <p><strong>Genre:</strong> ${book.genre}</p>
-                <p><strong>Year:</strong> ${book.year}</p>
-                <p><strong>ISBN:</strong> ${book.isbn}</p>
                 <button onclick="deleteBook(${book.id})" style="background-color: #e75c5c; border: none; padding: 0.5rem 1rem; color: white; cursor: pointer; border-radius: 5px;">Delete</button>
             </div>
     `;

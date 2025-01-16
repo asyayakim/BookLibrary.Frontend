@@ -20,19 +20,23 @@ export async function selectBook()
 }
 function renderBook(book) {
     contentDiv.innerHTML = '';
+    contentDiv.className = 'selected-book-layout';
+
     const bookDiv = document.createElement('div');
-    bookDiv.className = 'book';
+    bookDiv.className = 'selected-book';
     bookDiv.innerHTML = `
-        
-        <img src="${book.coverImageUrl}" alt="${book.title}" style="width:100%; height:auto; border-radius:5px; margin-bottom:10px;">
-            <div class="book-info" onclick="selectBook(${book.id})">
-                <h3>${book.title}</h3>
-                <p><strong>Author:</strong> ${book.author}</p>
-                <p><strong>Genre:</strong> ${book.genre}</p>
-                <p><strong>Year:</strong> ${book.year}</p>
-                <p><strong>ISBN:</strong> ${book.isbn}</p>
-                <button onclick="deleteBook(${book.id})" style="background-color: #e75c5c; border: none; padding: 0.5rem 1rem; color: white; cursor: pointer; border-radius: 5px;">Delete</button>
-            </div>
+       
+        <div class="book-details">
+            <h1>${book.title}</h1>
+            <p><strong>Author:</strong> ${book.author}</p>
+            <p><strong>Genre:</strong> ${book.genre}</p>
+            <p><strong>Year:</strong> ${book.year}</p>
+            <p><strong>ISBN:</strong> ${book.isbn}</p>
+            <button class="loan-btn" onclick="loanBook(${book.id})">Loan this Book</button>
+        </div>
+         <div class="book-cover">
+            <img src="${book.coverImageUrl}" alt="${book.title}">
+        </div>
     `;
     contentDiv.appendChild(bookDiv);
     

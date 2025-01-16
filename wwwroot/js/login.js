@@ -17,6 +17,7 @@ export function updateViewLogin() {
             
         </form>
     `;
+    
 
     document.getElementById('loginForm').addEventListener('submit', async (event) => {
         event.preventDefault();

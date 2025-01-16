@@ -2,10 +2,12 @@ body {
     font-family: 'Roboto', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f0f4f8;
     color: #333;
 }
-
 header {
     display: flex;
     justify-content: space-between;
@@ -16,8 +18,29 @@ header {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
+header .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
 header .logo img {
-    width: 50px;
+    width: 40px;
+    filter: invert(100%);
+}
+header .logo h1 {
+    font-size: 1.5rem;
+    margin: 0;
+    font-weight: 700;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    align-items: center;
 }
 
 header button {
@@ -45,17 +68,16 @@ header nav ul li a {
     font-weight: 500;
 }
 
-/* Main Content */
 main {
+    flex-grow: 1;
     padding: 2rem;
     text-align: center;
 }
 
-#content {
+.books-list {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 1.5rem;
-    margin-top: 2rem;
 }
 
 .book {
@@ -79,20 +101,59 @@ main {
     margin-bottom: 1rem;
 }
 
-/* Footer */
 footer {
     text-align: center;
     padding: 1rem;
-    background-color: #2d3436;
+    background-color: #1e293b;
     color: white;
+    margin-top: auto;
 }
 
 footer .social-links a {
-    color: #00cec9;
+    color: #6cd9d7;
     margin: 0 5px;
     text-decoration: none;
 }
 
 footer .social-links a:hover {
     text-decoration: underline;
+}
+.search-bar {
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    background-color: white;
+}
+
+.search-bar input {
+    border: none;
+    outline: none;
+    padding: 12px;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+}
+
+.search-bar img {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+}
+
+.login-btn {
+    background-color: #00cec9;
+    border: none;
+    padding: 0.5rem 1rem;
+    color: white;
+    cursor: pointer;
+    border-radius: 20px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+}
+
+.login-btn:hover {
+    background-color: #007f7e;
+}
+.logo{
+    cursor: pointer;
 }
