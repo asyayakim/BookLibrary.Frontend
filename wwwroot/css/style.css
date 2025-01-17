@@ -83,7 +83,7 @@ main {
 .book {
     background: white;
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
     padding: 1rem;
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
@@ -121,7 +121,7 @@ footer .social-links a:hover {
 .search-bar {
     display: flex;
     align-items: center;
-    border-radius: 20px;
+    border-radius: 4px;
     background-color: white;
 }
 
@@ -136,7 +136,7 @@ footer .social-links a:hover {
 .search-bar img {
     width: 20px;
     height: 20px;
-    margin-right: 12px;
+    margin-left: 12px;
 }
 
 .login-btn {

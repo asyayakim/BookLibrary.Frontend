@@ -15,15 +15,17 @@ export async function authenticateUser(username, password) {
         }
         if (response.ok) {
             const data = await response.json();
-            console.log(data)
             localStorage.setItem("token", data.Token);
+            console.log(data.token);
+            model.app.token = data.Token;
             alert("Login successful!");
             const user = data.user;
-            const role = user.role;
             model.app.isLoggedIn = true;
-            model.app.userRole = role;
+            model.app.userRole = user;
+            model.app.loggedInUser = user;
+            console.log("Logged-in user in loanBook:", model.app.loggedInUser);
 
-            model.app.currentPage = role === "admin" ? "adminDashboard" : "homeLibrary";
+            model.app.currentPage = user.role === "admin" ? "adminDashboard" : "homeLibrary";
             updateView();
         } else {
             document.getElementById("error").innerText = "Invalid credentials!";

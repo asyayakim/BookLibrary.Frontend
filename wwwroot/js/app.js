@@ -38,9 +38,8 @@ export function updateHeader() {
     nav.innerHTML = `
         <li>
             <form class="search-bar">
-                <input type="text" placeholder="Search for books..." aria-label="Search">
-                <button type="submit">
                 <img src="images/search.svg" width="16" height="16" alt="Search Icon">
+                <input type="text" placeholder="Search for books..." aria-label="Search">
             </form>
         </li>
         <li>

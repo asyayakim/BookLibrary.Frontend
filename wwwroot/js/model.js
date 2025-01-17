@@ -6,6 +6,7 @@ export const model = {
         isLoggedIn: false,
         role: null,
         filteredBooks: null,
+        token: null,
     },
     
 };
