@@ -4,6 +4,7 @@ export const model = {
         loggedInUser: null,
         currentBookId: null,
         isLoggedIn: false,
+        userId: null,
         role: null,
         filteredBooks: null,
         token: null,
