@@ -22,7 +22,7 @@ export async function authenticateUser(username, password) {
             const user = data.user;
             model.app.isLoggedIn = true;
             model.app.userRole = user;
-            model.app.loggedInUser = user;
+            model.app.loggedInUser = user.id;
 
             // model.app.token = data.Token;
               model.app.currentPage = user.role === "admin" ? "adminDashboard" : "homeLibrary";

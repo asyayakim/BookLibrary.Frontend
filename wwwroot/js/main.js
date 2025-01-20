@@ -6,6 +6,7 @@ import { renderAdminDashboard } from "./adminDashboard.js";
 import { model } from "./model.js";
 import {selectBook} from "./BookPageView.js";
 import {updateHeader} from "./app.js";
+import {viewUserInfo} from "./userInfo/viewUserInfo.js";
 
 export function updateView() {
     updateHeader();
@@ -23,8 +24,8 @@ export function updateView() {
         renderAdminDashboard();
     } else if (page === "addBook") {
         renderAddBookPage(); 
-    // } else if (page === "userInfo") {
-    //     viewUserInfo();
+    } else if (page === "userInfo") {
+        viewUserInfo();
     } else {
         document.getElementById("content").innerHTML = `<h1>Page not found</h1>`;
     }

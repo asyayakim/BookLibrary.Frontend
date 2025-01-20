@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
     updateView();
 });
 });
+
 document.addEventListener('DOMContentLoaded', function () {
     const searchForm = document.querySelector('.search-bar');
     searchForm.addEventListener('submit', function (event) {
@@ -47,11 +48,24 @@ export function updateHeader() {
                 ${model.app.isLoggedIn ? "Logout" : "Login"}
             </button>
         </li>
-    `;    const button = document.querySelector(model.app.isLoggedIn ? ".logout-btn" : ".login-btn");
+             ${model.app.isLoggedIn
+        ? `<div id="userLogin">
+                   <img src="/images/person-circle.svg" alt="User icon">
+               </div>`
+        : ""}
+    `;  
+    const button = document.querySelector(model.app.isLoggedIn ? ".logout-btn" : ".login-btn");
     button.addEventListener("click", model.app.isLoggedIn ? handleLogout : () => {
         model.app.currentPage = "login";
         updateView();
     });
+    if (model.app.isLoggedIn) {
+        const userLogin = document.querySelector("#userLogin");
+        userLogin.addEventListener("click", function () {
+            model.app.currentPage = "userInfo";
+            updateView();
+        });
+    }
 }
 export function handleLogout() {
     model.app.isLoggedIn = false;
