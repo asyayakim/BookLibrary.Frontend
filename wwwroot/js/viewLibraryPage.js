@@ -2,6 +2,7 @@ import {model} from "./model.js";
 import {updateView} from "./main.js";
 import {handleLogout} from "./app.js";
 import {addToFavorite} from "./BookPageController.js";
+import {returnBook} from "./userInfo/viewUserInfoController.js";
 
 const API_URL = 'http://localhost:5294/api/Book';
 const contentDiv = document.getElementById('content');
@@ -34,7 +35,11 @@ export function renderBooks(books) {
             <div class="book-info">
                 <h3 title="${book.title}">${truncatedTitle}</h3>
                 <p><strong>Author:</strong> ${truncatedAuthor}</p>
-                <button onclick="deleteBook(${book.id})" style="background-color: #e75c5c; border: none; padding: 0.5rem 1rem; color: white; cursor: pointer; border-radius: 5px;">Delete</button>
+               ${
+            model.app.userRole === 'admin'
+                ? `<button class="deleteButton" data-id="${book.id}" data-isbn="${book.id}">Delete</button>`
+                : ''
+        }
             </div>
     `;
 
@@ -49,6 +54,13 @@ export function renderBooks(books) {
             }
         });
         contentDiv.appendChild(bookDiv);
+    });
+    const DeleteButtons = document.querySelectorAll('.deleteButton');
+    DeleteButtons.forEach((button) => {
+        button.addEventListener('click', async () => {
+            const id = button.getAttribute('data-isbn');
+            await deleteBook(id);
+        });
     });
 }
 

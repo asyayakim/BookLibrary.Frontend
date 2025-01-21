@@ -11,18 +11,5 @@ export function renderAdminDashboard() {
     document.getElementById('content').innerHTML = `
         <h2>Welcome, Admin!</h2>
         `;
-        fetchBooks();
-    document.getElementById('viewLibraryPage').addEventListener('click', () => {
-        model.app.currentPage = 'homeLibrary';
-        updateView();
-    });
-    document.getElementById('addBookPage').addEventListener('click', () => {
-        model.app.currentPage = 'addBook';
-        updateView();
-    });
-    document.getElementById('logoutButton').addEventListener('click', () => {
-        model.app.loggedInUser = null;
-        model.app.currentPage = 'login';
-        updateView();
-    });
+
 }

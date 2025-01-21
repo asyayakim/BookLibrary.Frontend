@@ -66,6 +66,15 @@
     background-color: #007f7e;
 }
 
+.deleteButton {
+    background-color: #e75c5c;
+    border: none;
+    padding: 0.5rem 1rem;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .selected-book {
@@ -82,3 +91,4 @@
         max-width: 100%;
     }
 }
+

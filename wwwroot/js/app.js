@@ -53,7 +53,22 @@ export function updateHeader() {
                    <img src="/images/person-circle.svg" alt="User icon">
                </div>`
         : ""}
-    `;  
+        <li>
+         ${
+        model.app.role === 'admin'
+            ? `<button class="addBookPage">Add book</button>`
+            : ''
+    }
+        </li>
+    `;
+    const addBookButton = document.querySelector('.addBookPage');
+    if (addBookButton) {
+        addBookButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            model.app.currentPage = 'addBook';
+            updateView();
+        });
+    }
     const button = document.querySelector(model.app.isLoggedIn ? ".logout-btn" : ".login-btn");
     button.addEventListener("click", model.app.isLoggedIn ? handleLogout : () => {
         model.app.currentPage = "login";

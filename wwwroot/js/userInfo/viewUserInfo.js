@@ -4,8 +4,8 @@ import {returnBook, showLoanedBooks} from "./viewUserInfoController.js";
 export async function viewUserInfo() {
     const contentDiv = document.getElementById('content');
     contentDiv.innerHTML = `
-       <h2>Change user info</h2>
         <form id="changePersonalInformation">
+       <h2>Change user info</h2>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
             <label for="password">Password*:</label>
@@ -15,25 +15,21 @@ export async function viewUserInfo() {
             <div class = "registerButtons">
             <button type="submit">Confirm</button>
              </div>
-        </form>
         <h3>Loaned Books</h3>
+        </form>
         <div id="bookLoanedByUser"></div>
-        
     `;
     document.getElementById('changePersonalInformation').addEventListener('submit', async (event) => {
         event.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-
         await registerNewUser(username, password);
     });
-
     await showLoanedBooks();
-
 }
 
 export function renderLoanedBooks(loanedBooks) {
-    const contentDiv = document.getElementById('content1');
+    const contentDiv = document.getElementById('bookLoanedByUser');
     if (!loanedBooks || loanedBooks.length === 0) {
         contentDiv.innerHTML = '<p>No loaned books found.</p>';
         return;
@@ -60,7 +56,6 @@ export function renderLoanedBooks(loanedBooks) {
     returnButtons.forEach((button) => {
         button.addEventListener('click', async () => {
             const isbn = button.getAttribute('data-isbn');
-            console.log('Returning book with ISBN:', isbn);
             await returnBook(isbn);
         });
     });

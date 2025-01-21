@@ -21,7 +21,8 @@ export async function authenticateUser(username, password) {
             
             const user = data.user;
             model.app.isLoggedIn = true;
-            model.app.userRole = user;
+            model.app.userRole = user.role;
+            console.log(`User role was ${model.app.userRole}`);
             model.app.loggedInUser = user.id;
             console.log(model.app.loggedInUser);
 
