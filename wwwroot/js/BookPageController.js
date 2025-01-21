@@ -8,7 +8,7 @@ export async function postSelectedBookToDb(loanedBook) {
         Isbn: loanedBook.isbn, 
         Title: loanedBook.title,
         LoanDate: new Date().toISOString(),
-        UserId: model.app.loggedInUser.id 
+        UserId: model.app.loggedInUser 
     };
     
     try {

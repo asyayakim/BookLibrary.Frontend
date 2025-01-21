@@ -15,7 +15,6 @@ export function updateViewRegisterNewUser() {
             <input type="password" id="confirmPassword" name="confirmPassword" required>
             <div class = "registerButtons">
             <button type="submit">Confirm</button>
-            <button type="button" id="returnButton">Return</button>
              </div>
         </form>
     `;

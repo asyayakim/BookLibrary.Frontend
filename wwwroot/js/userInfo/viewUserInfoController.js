@@ -1,13 +1,19 @@
-import {renderBooks} from "../viewLibraryPage.js";
+import {fetchBooks, renderBooks} from "../viewLibraryPage.js";
 import {model} from "../model.js";
+import {renderLoanedBooks} from "./viewUserInfo.js";
+import {updateView} from "../main.js";
 
 export async function showLoanedBooks() {
     const userId = model.app.loggedInUser;
-    console.log(userId);
     const API_URL = `http://localhost:5294/api/books/loaned?userId=${userId}`;
     try {
         const response = await fetch(API_URL);
         if (!response.ok) {
+            if (response.status === 404) {
+                console.warn('No loaned books found for this user.');
+                renderLoanedBooks([]);
+                return;
+            }
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const loanedBooks = await response.json();
@@ -19,25 +25,20 @@ export async function showLoanedBooks() {
     }
     
 }
-function renderLoanedBooks(loanedBooks) {
-    const contentDiv = document.getElementById('content1');
-    if (!loanedBooks || loanedBooks.length === 0) {
-        contentDiv.innerHTML = '<p>No loaned books found.</p>';
-        return;
+export async function returnBook(book){
+    try {
+        const userId = model.app.loggedInUser;
+        const API_URL = `http://localhost:5294/api/books/deleteBook?userId=${userId}&isbn=${book}`;
+        const response = await fetch(API_URL, {method: 'DELETE'});
+        if (response.ok) {
+            alert('Book returned successfully.');
+            model.app.currentPage = 'userInfo';
+            updateView();
+        } else {
+            console.error('Failed to return book');
+        }
+    } catch (error) {
+        console.error('Error deleting book:', error);
     }
-        contentDiv.innerHTML = '';
-        contentDiv.className = 'selected-book-layout';
-    loanedBooks.forEach((book) => {
-        const bookDiv = document.createElement('div');
-        bookDiv.className = 'selected-book';
-        bookDiv.innerHTML = `
-     <div class="book">
-     <img src="${book.coverImageUrl}" alt="${book.title}" style="width:100%; height:auto; border-radius:5px; margin-bottom:10px;">
-            <h3>${book.title}</h3>
-            <p><strong>ISBN:</strong> ${book.isbn}</p>
-            <p><strong>Loan Date:</strong> ${book.loanDate}</p>
-        </div>
-          `;
-        contentDiv.appendChild(bookDiv);
-    });
+
 }
