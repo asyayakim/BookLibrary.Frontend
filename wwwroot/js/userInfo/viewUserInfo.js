@@ -4,9 +4,9 @@ import {showLoanedBooks} from "./viewUserInfoController.js";
 export async function viewUserInfo() {
     const contentDiv = document.getElementById('content');
     contentDiv.innerHTML = `
-       <h2>User Info</h2>
+       <h2>Change user info</h2>
         <form id="changePersonalInformation">
-            <label for="username">Username*:</label>
+            <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
             <label for="password">Password*:</label>
             <input type="password" id="password" name="password" required>

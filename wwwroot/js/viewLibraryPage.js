@@ -1,12 +1,14 @@
 import {model} from "./model.js";
 import {updateView} from "./main.js";
+import {handleLogout} from "./app.js";
+import {addToFavorite} from "./BookPageController.js";
 
 const API_URL = 'http://localhost:5294/api/Book';
 const contentDiv = document.getElementById('content');
 const viewLibraryPageBtn = document.getElementById('viewLibraryPage');
 
 export async function fetchBooks() {
-    try { 
+    try {
         const response = await fetch(API_URL);
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -27,23 +29,35 @@ export function renderBooks(books) {
         let truncatedTitle = book.title.length > 20 ? book.title.substring(0, 20) + '...' : book.title;
         let truncatedAuthor = book.author.length > 15 ? book.title.substring(0, 15) + '...' : book.author;
         bookDiv.innerHTML = `
-
         <img src="${book.coverImageUrl}" alt="${book.title}" style="width:100%; height:auto; border-radius:5px; margin-bottom:10px;">
+             <img class="bookmark" src="/images/bookmark-fill.svg" alt="bookmark">
             <div class="book-info">
                 <h3 title="${book.title}">${truncatedTitle}</h3>
                 <p><strong>Author:</strong> ${truncatedAuthor}</p>
                 <button onclick="deleteBook(${book.id})" style="background-color: #e75c5c; border: none; padding: 0.5rem 1rem; color: white; cursor: pointer; border-radius: 5px;">Delete</button>
             </div>
     `;
-        contentDiv.appendChild(bookDiv);
+
         bookDiv.addEventListener('click', () => selectBookPage(book.id));
+        const bookmarkButton = bookDiv.querySelector(".bookmark");
+        bookmarkButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            if (model.app.isLoggedIn) {
+                addToFavorite(book);
+            } else {
+                alert('Please log in to add to favorites.');
+            }
+        });
+        contentDiv.appendChild(bookDiv);
     });
 }
+
 function selectBookPage(bookId) {
     model.app.currentBookId = bookId;
     model.app.currentPage = "selectedBookPage";
     updateView();
 }
+
 async function deleteBook(id) {
     try {
         const response = await fetch(`${API_URL}/${id}`, {method: 'DELETE'});
@@ -56,4 +70,5 @@ async function deleteBook(id) {
         console.error('Error deleting book:', error);
     }
 }
+
 window.deleteBook = deleteBook;

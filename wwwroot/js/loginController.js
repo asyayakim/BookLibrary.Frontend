@@ -23,6 +23,7 @@ export async function authenticateUser(username, password) {
             model.app.isLoggedIn = true;
             model.app.userRole = user;
             model.app.loggedInUser = user.id;
+            console.log(model.app.loggedInUser);
 
             // model.app.token = data.Token;
               model.app.currentPage = user.role === "admin" ? "adminDashboard" : "homeLibrary";

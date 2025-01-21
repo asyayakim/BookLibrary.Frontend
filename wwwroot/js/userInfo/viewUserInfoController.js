@@ -19,8 +19,6 @@ export async function showLoanedBooks() {
     }
     
 }
-
-
 function renderLoanedBooks(loanedBooks) {
     const contentDiv = document.getElementById('content1');
     if (!loanedBooks || loanedBooks.length === 0) {
@@ -34,6 +32,7 @@ function renderLoanedBooks(loanedBooks) {
         bookDiv.className = 'selected-book';
         bookDiv.innerHTML = `
      <div class="book">
+     <img src="${book.coverImageUrl}" alt="${book.title}" style="width:100%; height:auto; border-radius:5px; margin-bottom:10px;">
             <h3>${book.title}</h3>
             <p><strong>ISBN:</strong> ${book.isbn}</p>
             <p><strong>Loan Date:</strong> ${book.loanDate}</p>

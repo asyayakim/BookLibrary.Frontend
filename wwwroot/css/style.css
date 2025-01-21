@@ -76,31 +76,54 @@ main {
 
 .books-list {
     display: grid;
-    grid-template-columns: repeat(4, minmax(200px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive grid */
+    gap: 0.8rem;
+    padding: 0;
 }
 
 .book {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
-    padding: 1rem;
     text-align: center;
+    position: relative;
+    padding: 0.5rem;
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .book:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+.book-info h3 {
+    font-family: 'Arial Black', sans-serif;
+    font-size: 0.9rem;
+    margin: 0.3rem 0;
 }
 
+.book-info p {
+    font-family: 'Arial', sans-serif; 
+    font-size: 0.8rem;
+    color: #333;
+    margin: 0.3rem 0;
+}
 .book img {
     width: 100%;
     height: auto;
-    border-radius: 10px;
-    margin-bottom: 1rem;
+    border-radius: 5px;
+    margin-bottom: 0.5rem;
+}
+.book .bookmark {
+    position: absolute;
+    top: 10px; /* Position at the top-right */
+    right: 10px;
+    width: 24px; /* Adjust size */
+    height: 24px;
+    cursor: pointer;
+    border-color: #1e293b;
+    z-index: 1; /* Ensure it appears above the image */
+    transition: transform 0.3s;
 }
 
+.book .bookmark:hover {
+    transform: scale(1.1);
+}
 footer {
     text-align: center;
     padding: 1rem;
@@ -139,7 +162,7 @@ footer .social-links a:hover {
     margin-left: 12px;
 }
 
-.login-btn {
+.login-btn, .logout-btn {
     background-color: #00cec9;
     border: none;
     padding: 0.5rem 1rem;
@@ -151,9 +174,12 @@ footer .social-links a:hover {
     transition: background-color 0.3s;
 }
 
-.login-btn:hover {
+.login-btn:hover, .logout-btn:hover {
     background-color: #007f7e;
 }
 .logo{
+    cursor: pointer;
+}
+#userLogin {
     cursor: pointer;
 }
