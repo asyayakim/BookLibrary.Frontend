@@ -2,11 +2,11 @@ import { updateViewLogin } from "./login.js";
 import { fetchBooks } from "./viewLibraryPage.js";
 import { renderAddBookPage } from "./addBook.js";
 import { updateViewRegisterNewUser} from "./registerNewUserView.js";
-import { renderAdminDashboard } from "./adminDashboard.js";
 import { model } from "./model.js";
 import {selectBook} from "./BookPageView.js";
 import {updateHeader} from "./app.js";
 import {viewUserInfo} from "./userInfo/viewUserInfo.js";
+import {renderAdminDashboard} from "./admin.js/adminDashboard.js";
 
 export function updateView() {
     updateHeader();

@@ -3,6 +3,7 @@ import {updateView} from "./main.js";
 import {handleLogout} from "./app.js";
 import {addToFavorite} from "./BookPageController.js";
 import {returnBook} from "./userInfo/viewUserInfoController.js";
+import {renderAdminBooks} from "./admin.js/adminDashboard.js";
 
 const API_URL = 'http://localhost:5294/api/Book';
 const contentDiv = document.getElementById('content');
@@ -15,7 +16,12 @@ export async function fetchBooks() {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const books = await response.json();
-        renderBooks(books);
+        if (model.app.userRole === 'admin') {
+            renderAdminBooks(books);
+        } else {
+            renderBooks(books);
+        }
+
     } catch (error) {
         console.error('Error fetching books:', error);
     }

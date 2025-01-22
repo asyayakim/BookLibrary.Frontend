@@ -1,4 +1,4 @@
-import { model } from "./model.js";
+import {model} from "./model.js";
 import {updateView} from "./main.js";
 import {fetchSearchedBooks} from "./searchingBook.js";
 
@@ -14,9 +14,14 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
     const loginButton = document.querySelector('.logo');
     loginButton.addEventListener('click', function () {
-    model.app.currentPage = "homeLibrary";
-    updateView();
-});
+        if (model.app.userRole === 'admin') {
+            model.app.currentPage = "adminDashboard";
+            updateView();
+        } else {
+            model.app.currentPage = "homeLibrary";
+            updateView();
+        }
+    });
 });
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -53,22 +58,8 @@ export function updateHeader() {
                    <img src="/images/person-circle.svg" alt="User icon">
                </div>`
         : ""}
-        <li>
-         ${
-        model.app.role === 'admin'
-            ? `<button class="addBookPage">Add book</button>`
-            : ''
-    }
-        </li>
     `;
-    const addBookButton = document.querySelector('.addBookPage');
-    if (addBookButton) {
-        addBookButton.addEventListener('click', (event) => {
-            event.stopPropagation();
-            model.app.currentPage = 'addBook';
-            updateView();
-        });
-    }
+
     const button = document.querySelector(model.app.isLoggedIn ? ".logout-btn" : ".login-btn");
     button.addEventListener("click", model.app.isLoggedIn ? handleLogout : () => {
         model.app.currentPage = "login";
@@ -88,7 +79,7 @@ export function handleLogout() {
     localStorage.removeItem("token");
     model.app.currentPage = "login";
     alert("Logged out successfully!");
-    updateView(); 
+    updateView();
 }
 
 

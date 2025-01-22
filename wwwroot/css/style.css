@@ -162,16 +162,16 @@ footer .social-links a:hover {
     margin-left: 12px;
 }
 
-.login-btn, .logout-btn {
+.login-btn, .logout-btn, .addBookPage, .viewLoanedBooksUsers {
     background-color: #00cec9;
     border: none;
-    padding: 0.5rem 1rem;
     color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
     cursor: pointer;
-    border-radius: 20px;
+    transition: background-color 0.3s ease;
     font-family: 'Roboto', sans-serif;
     font-size: 0.9rem;
-    transition: background-color 0.3s;
 }
 
 .login-btn:hover, .logout-btn:hover {
