@@ -1,11 +1,4 @@
 
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
@@ -14,11 +7,16 @@ body {
     padding: 0;
 }
 
-/* Admin Page Layout */
+
 .layout-admin-page {
-    padding: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
+
+}
+
+.background-for-navigation {
+    display: flex;
+    margin-bottom: 5%;
+    background-color: #ffffff;
+    flex-direction: column;
 }
 
 .layout-admin-page h2 {
@@ -37,10 +35,11 @@ body {
 
 
 .books-list-Admin {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive grid */
+    gap: 3rem;
+    padding: 3rem;
 }
 
 
@@ -48,12 +47,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 15px;
-    width: 250px;
+    text-align: center;
 }
+
 .book-admin-page img {
     border-radius: 5px;
     height: auto;
+    object-fit: cover;
     margin-bottom: 10px;
 }
 
@@ -63,41 +63,31 @@ body {
 }
 
 .book-info h3 {
-    font-size: 18px;
-    margin-bottom: 10px;
+    font-size: 14px;
+    margin: 5px 0;
     color: #333;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .book-info p {
-    font-size: 14px;
+    font-size: 12px;
     color: #555;
-    margin-bottom: 10px;
+    margin: 5px 0;
 }
 
 @media (max-width: 768px) {
     .container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .books-list-Admin {
-        gap: 15px;
+        gap: 10px;
     }
 
     .book-admin-page {
         width: 100%;
     }
+
+    .books-list-Admin {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
 }
 
-.books-list-Admin {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
-}
 
 .book-info .deleteButton {
     background-color: #e75c5c;
@@ -113,6 +103,7 @@ body {
 .book-info .deleteButton:hover {
     background-color: #c34747;
 }
+
 .book-info .editButton {
     background-color: #42b647;
     color: white;

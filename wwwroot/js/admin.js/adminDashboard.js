@@ -7,10 +7,12 @@ import {updateView} from "../main.js";
 export function renderAdminDashboard() {
     document.getElementById('content').innerHTML = `
     <div class="layout-admin-page">
+    <div class="background-for-navigation">
        <h2>Welcome, Admin!</h2>
         <div class="container">
             <button class="viewLoanedBooksUsers">View all loaned books and users</button>
             <button class="addBookPage">Add book</button>
+        </div>
         </div>
         <div id="viewBooks" class="viewBooks"></div>
         </div>
@@ -25,6 +27,8 @@ export function renderAdminDashboard() {
     const viewLoanedBooksButton = document.querySelector('.viewLoanedBooksUsers');
     viewLoanedBooksButton.addEventListener('click', () => {
         alert('Displaying all loaned books and users!');
+        model.app.currentPage = 'adminViewUsers&Books';
+        updateView();
     });
     fetchBooks();
 }
