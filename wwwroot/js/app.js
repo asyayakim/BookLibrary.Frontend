@@ -3,8 +3,8 @@ import {updateView} from "./main.js";
 import {fetchSearchedBooks} from "./searchingBook.js";
 
 updateView();
-
 document.addEventListener('DOMContentLoaded', function () {
+
     const loginButton = document.querySelector('.login-btn');
     loginButton.addEventListener('click', function () {
         model.app.currentPage = "login";
@@ -24,28 +24,22 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    const searchForm = document.querySelector('.search-bar');
-    searchForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-        const searchQuery = searchForm.querySelector('input').value.trim();
-
-        if (searchQuery) {
-            console.log(`Searching for: ${searchQuery}`);
-            fetchSearchedBooks(searchQuery);
-        } else {
-            alert('Please enter a search term.');
-        }
-    });
-});
-
 export function updateHeader() {
     const nav = document.querySelector("nav ul");
     nav.innerHTML = `
         <li>
-            <form class="search-bar">
-                <img src="images/search.svg" width="16" height="16" alt="Search Icon">
-                <input type="text" placeholder="Search for books..." aria-label="Search">
+            <form class="search-bar ${model.app.searchMode ? 'active' : ''}">
+                ${
+        model.app.searchMode
+            ? `
+                            <img src="images/search.svg" width="16" height="16" alt="Search Icon">
+                            <input type="text" placeholder="Search for books..." aria-label="Search">
+                            `
+            : `
+                            <button class="search-bar-button">
+                                <img src="images/search.svg" width="16" height="16" alt="Search Icon">
+                            </button>`
+    }
             </form>
         </li>
         <li>
@@ -59,6 +53,40 @@ export function updateHeader() {
                </div>`
         : ""}
     `;
+    const searchButton = document.querySelector('.search-bar-button');
+    if (searchButton) {
+        searchButton.addEventListener('click', function (event) {
+            event.preventDefault();
+            model.app.searchMode = true; 
+            console.log(model.app.searchMode);
+            updateView();
+            model.app.searchMode = false;
+        });
+    }
+
+    const searchForm = document.querySelector('.search-bar');
+    searchForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const searchQuery = searchForm.querySelector('input').value.trim();
+
+        if (searchQuery) {
+            fetchSearchedBooks(searchQuery);
+        } else {
+            alert('Please enter a search term.');
+        }
+    });
+    // document.addEventListener('click', function (event) {
+    //     const searchBar = document.querySelector('.search-bar');
+    //     if (
+    //         model.app.searchMode && 
+    //         searchBar &&
+    //         !searchBar.contains(event.target) 
+    //     ) {
+    //         model.app.searchMode = false;
+    //         console.log(model.app.searchMode);
+    //         updateView();
+    //     }
+    // }); 
 
     const button = document.querySelector(model.app.isLoggedIn ? ".logout-btn" : ".login-btn");
     button.addEventListener("click", model.app.isLoggedIn ? handleLogout : () => {
@@ -73,6 +101,7 @@ export function updateHeader() {
         });
     }
 }
+
 export function handleLogout() {
     model.app.isLoggedIn = false;
     model.app.userRole = null;

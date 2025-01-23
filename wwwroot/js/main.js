@@ -7,7 +7,7 @@ import {selectBook} from "./BookPageView.js";
 import {updateHeader} from "./app.js";
 import {viewUserInfo} from "./userInfo/viewUserInfo.js";
 import {renderAdminDashboard} from "./admin.js/adminDashboard.js";
-import {renderAdminViewUsers} from "./admin.js/viewLoandBooksAndUserdata.js";
+import {renderAdminViewUsers} from "./admin.js/adminLoanedBooksView.js";
 
 export function updateView() {
     updateHeader();

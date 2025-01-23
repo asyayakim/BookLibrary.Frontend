@@ -8,6 +8,7 @@ export const model = {
         role: null,
         filteredBooks: null,
         token: null,
+        searchMode: false,
     },
     
 };
