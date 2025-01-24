@@ -36,7 +36,7 @@ export function renderBooks(books) {
         let truncatedTitle = book.title.length > 20 ? book.title.substring(0, 20) + '...' : book.title;
         let truncatedAuthor = book.author.length > 15 ? book.title.substring(0, 15) + '...' : book.author;
         bookDiv.innerHTML = `
-        <img src="${book.coverImageUrl}" alt="${book.title}" style="width:100%; height:auto; border-radius:5px; margin-bottom:10px;">
+        <img src="${book.coverImageUrl || 'images/book.svg'}" alt="${book.title}" style="width:100%; height:auto; border-radius:5px; margin-bottom:10px;">
              <img class="bookmark" src="/images/bookmark-fill.svg" alt="bookmark">
             <div class="book-info">
                 <h3 title="${book.title}">${truncatedTitle}</h3>

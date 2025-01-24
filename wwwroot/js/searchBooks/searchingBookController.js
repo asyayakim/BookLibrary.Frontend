@@ -1,4 +1,5 @@
-import {renderBooks} from "./viewLibraryPage.js";
+import {renderBooks} from "../viewLibraryPage.js";
+import {renderBooksForSearch} from "./searchingBookView.js";
 export async function fetchSearchedBooks(searchQuery) {
     try {
         const API_URL = 'http://localhost:5294/api/Book';
@@ -11,8 +12,9 @@ export async function fetchSearchedBooks(searchQuery) {
             book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
             book.author.toLowerCase().includes(searchQuery.toLowerCase())
         );
-        renderBooks(filteredBooks);
+        renderBooksForSearch(filteredBooks);
     } catch (error) {
         console.error('Error fetching books:', error);
     }
 }
+

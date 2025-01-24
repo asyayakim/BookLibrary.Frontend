@@ -8,6 +8,7 @@ import {updateHeader} from "./app.js";
 import {viewUserInfo} from "./userInfo/viewUserInfo.js";
 import {renderAdminDashboard} from "./admin.js/adminDashboard.js";
 import {renderAdminViewUsers} from "./admin.js/adminLoanedBooksView.js";
+import {showSearchingBooks} from "./searchBooks/searchingBookView.js";
 
 export function updateView() {
     updateHeader();
@@ -25,6 +26,8 @@ export function updateView() {
         renderAdminDashboard();
     } else if (page === "addBook") {
         renderAddBookPage();
+    } else if (page === "searchBook") {
+        showSearchingBooks();
     } else if (page === "adminViewUsers&Books") {
         renderAdminViewUsers();
     } else if (page === "userInfo") {

@@ -1,6 +1,6 @@
 import {model} from "./model.js";
 import {updateView} from "./main.js";
-import {fetchSearchedBooks} from "./searchingBook.js";
+import {fetchSearchedBooks} from "./searchBooks/searchingBookController.js";
 
 updateView();
 document.addEventListener('DOMContentLoaded', function () {
@@ -32,8 +32,8 @@ export function updateHeader() {
                 ${
         model.app.searchMode
             ? `
-                            <img src="images/search.svg" width="16" height="16" alt="Search Icon">
-                            <input type="text" placeholder="Search for books..." aria-label="Search">
+                            <img src="images/search.svg" width="24" height="24" alt="Search Icon">
+                            <input type="text" placeholder="Search..." aria-label="Search">
                             `
             : `
                             <button class="search-bar-button">
@@ -59,8 +59,8 @@ export function updateHeader() {
             event.preventDefault();
             model.app.searchMode = true; 
             console.log(model.app.searchMode);
+            model.app.currentPage = 'searchBook';
             updateView();
-            model.app.searchMode = false;
         });
     }
 
@@ -75,18 +75,6 @@ export function updateHeader() {
             alert('Please enter a search term.');
         }
     });
-    // document.addEventListener('click', function (event) {
-    //     const searchBar = document.querySelector('.search-bar');
-    //     if (
-    //         model.app.searchMode && 
-    //         searchBar &&
-    //         !searchBar.contains(event.target) 
-    //     ) {
-    //         model.app.searchMode = false;
-    //         console.log(model.app.searchMode);
-    //         updateView();
-    //     }
-    // }); 
 
     const button = document.querySelector(model.app.isLoggedIn ? ".logout-btn" : ".login-btn");
     button.addEventListener("click", model.app.isLoggedIn ? handleLogout : () => {
