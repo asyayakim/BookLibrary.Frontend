@@ -1,7 +1,10 @@
 import {model} from "../model.js";
 import {addToFavorite} from "../BookPageController.js";
+import {applyFilters} from "./searchingBookFiltr.js";
+import {fetchBooks} from "../viewLibraryPage.js";
 let currentBatch = 10;
 let sortedBooks = [];
+let activeFilters = [];
 export function showSearchingBooks() {
 
     document.getElementById('content').innerHTML = `
@@ -39,11 +42,16 @@ export function showSearchingBooks() {
                     </div>
                 </div>
         </div>
+              <div class="selected-filters">
+              <h3>Selected Filters:</h3>
+              <div id="filterTags"></div>
+              </div>
         </div>
         <div id="viewSearch" class="viewBooks"></div>
         <button id="loadMoreBooks" class="load-more">Load More Books</button>
         </div>
         `;
+    fetchBooks();
     model.app.currentPage = 'searchBook';
     model.app.searchMode = false;
     document.querySelector('.sort-by-year .sort-header').addEventListener('click', (e) => {
@@ -78,15 +86,33 @@ export function showSearchingBooks() {
     document.getElementById('filterByYear').addEventListener('click', () => {
         const yearFrom = parseInt(document.getElementById('yearFrom').value, 10);
         const yearTo = parseInt(document.getElementById('yearTo').value, 10);
-        if (!Array.isArray(sortedBooks)) {
-            console.error("sortedBooks is not an array:", sortedBooks);
-            return;
-        }
+        const selectedGenres = Array.from(document.querySelectorAll('input[name="genre"]:checked'))
+            .map(checkbox => checkbox.value.toLowerCase());
+
         const filteredBooks = sortedBooks.filter(book => {
             const year = parseInt(book.year, 10);
-            return (!isNaN(yearFrom) ? year >= yearFrom : true) &&
+            const matchesYear = (!isNaN(yearFrom) ? year >= yearFrom : true) &&
                 (!isNaN(yearTo) ? year <= yearTo : true);
+            const matchesGenre = selectedGenres.length
+                ? selectedGenres.some(genre => book.genre.toLowerCase().includes(genre))
+                : true;
+
+            return matchesYear && matchesGenre;
         });
+        activeFilters = activeFilters.filter(filter => filter.type !== 'year');
+        if (!isNaN(yearFrom) || !isNaN(yearTo)) {
+            activeFilters.push({
+                type: 'year',
+                label: `Year: ${yearFrom || 'any'} - ${yearTo || 'any'}`,
+                remove: () => {
+                    document.getElementById('yearFrom').value = '';
+                    document.getElementById('yearTo').value = '';
+                }
+            });
+        }
+
+        applyFilters();
+        
         currentBatch = 10;
         renderBooksForSearch(filteredBooks);
     });
@@ -94,9 +120,33 @@ export function showSearchingBooks() {
     document.getElementById('filterByGenre').addEventListener('click', () => {
         const selectedGenres = Array.from(document.querySelectorAll('input[name="genre"]:checked'))
             .map(checkbox => checkbox.value.toLowerCase());
-        const filteredBooks = sortedBooks.filter(book =>
-            selectedGenres.some(genre => book.genre.toLowerCase().includes(genre))
-        );
+
+        activeFilters = activeFilters.filter(filter => filter.type !== 'genre');
+        selectedGenres.forEach(genre => {
+            activeFilters.push({
+                type: 'genre',
+                label: `Genre: ${genre}`,
+                remove: () => {
+                    document.querySelector(`input[name="genre"][value="${genre}"]`).checked = false;
+                }
+            });
+        });
+
+        applyFilters();
+        
+        const yearFrom = parseInt(document.getElementById('yearFrom').value, 10);
+        const yearTo = parseInt(document.getElementById('yearTo').value, 10);
+
+        const filteredBooks = sortedBooks.filter(book => {
+            const year = parseInt(book.year, 10);
+            const matchesYear = (!isNaN(yearFrom) ? year >= yearFrom : true) &&
+                (!isNaN(yearTo) ? year <= yearTo : true);
+            const matchesGenre = selectedGenres.length
+                ? selectedGenres.some(genre => book.genre.toLowerCase().includes(genre))
+                : true;
+
+            return matchesYear && matchesGenre;
+        });
         currentBatch = 10;
         renderBooksForSearch(filteredBooks);
     });
