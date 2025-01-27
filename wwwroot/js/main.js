@@ -1,5 +1,4 @@
 import { updateViewLogin } from "./login.js";
-import { fetchBooks } from "./viewLibraryPage.js";
 import { renderAddBookPage } from "./addBook.js";
 import { updateViewRegisterNewUser} from "./registerNewUserView.js";
 import { model } from "./model.js";
@@ -9,6 +8,7 @@ import {viewUserInfo} from "./userInfo/viewUserInfo.js";
 import {renderAdminDashboard} from "./admin.js/adminDashboard.js";
 import {renderAdminViewUsers} from "./admin.js/adminLoanedBooksView.js";
 import {showSearchingBooks} from "./searchBooks/searchingBookView.js";
+import {drawHomePage} from "./viewLibraryPage/viewLoadPageView.js";
 
 export function updateView() {
     updateHeader();
@@ -17,7 +17,7 @@ export function updateView() {
     if (page === "login") {
         updateViewLogin(); 
     } else if (page === "homeLibrary") {
-        fetchBooks();
+        drawHomePage();
     } else if (page === "selectedBookPage") {
         selectBook();
     } else if (page === "registration") {

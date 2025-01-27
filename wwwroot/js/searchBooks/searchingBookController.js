@@ -1,4 +1,4 @@
-import {renderBooks} from "../viewLibraryPage.js";
+
 import {renderBooksForSearch} from "./searchingBookView.js";
 export async function fetchSearchedBooks(searchQuery) {
     try {

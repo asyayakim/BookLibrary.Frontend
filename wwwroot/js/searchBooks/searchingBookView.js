@@ -1,7 +1,11 @@
 import {model} from "../model.js";
 import {addToFavorite} from "../BookPageController.js";
 import {applyFilters} from "./searchingBookFiltr.js";
-import {fetchBooks} from "../viewLibraryPage.js";
+import {fetchBooks, selectBookPage} from "../viewLibraryPage.js";
+
+
+
+
 let currentBatch = 10;
 let sortedBooks = [];
 let activeFilters = [];
@@ -48,10 +52,12 @@ export function showSearchingBooks() {
               </div>
         </div>
         <div id="viewSearch" class="viewBooks"></div>
-        <button id="loadMoreBooks" class="load-more">Load More Books</button>
+       
+
         </div>
         `;
     fetchBooks();
+
     model.app.currentPage = 'searchBook';
     model.app.searchMode = false;
     document.querySelector('.sort-by-year .sort-header').addEventListener('click', (e) => {
@@ -76,11 +82,6 @@ export function showSearchingBooks() {
             sortOptions.style.display = 'none';
             img.src = 'images/caret-up.svg';
         }
-    });
-
-    document.getElementById('loadMoreBooks').addEventListener('click', () => {
-        currentBatch += 10;
-        renderBooksForSearch(0, currentBatch);
     });
 
     document.getElementById('filterByYear').addEventListener('click', () => {
@@ -132,7 +133,7 @@ export function showSearchingBooks() {
             });
         });
 
-        applyFilters();
+        applyFilters(activeFilters);
         
         const yearFrom = parseInt(document.getElementById('yearFrom').value, 10);
         const yearTo = parseInt(document.getElementById('yearTo').value, 10);
@@ -193,10 +194,4 @@ const contentDiv = document.getElementById('viewSearch');
         });
         contentDiv.appendChild(bookDiv);
     });
-    const loadMoreButton = document.getElementById('loadMoreBooks');
-    if (currentBatch >= filteredBooks.length) {
-        loadMoreButton.style.display = 'none'; 
-    } else {
-        loadMoreButton.style.display = 'block';
-    } 
 }

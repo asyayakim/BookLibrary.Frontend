@@ -1,4 +1,5 @@
-import {fetchBooks, renderBooks} from "../viewLibraryPage.js";
+
+
 import {model} from "../model.js";
 import {renderLoanedBooks} from "./viewUserInfo.js";
 import {updateView} from "../main.js";

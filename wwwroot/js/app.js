@@ -14,6 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
     const loginButton = document.querySelector('.logo');
     loginButton.addEventListener('click', function () {
+        
         if (model.app.userRole === 'admin') {
             model.app.currentPage = "adminDashboard";
             updateView();

@@ -1,3 +1,5 @@
+import {renderBooksForSearch} from "./searchingBookView.js";
+
 export function updateFilterTags(filters) {
     const filterTagsDiv = document.getElementById('filterTags');
     filterTagsDiv.innerHTML = '';
