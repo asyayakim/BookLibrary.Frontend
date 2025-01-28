@@ -2,6 +2,7 @@ import {model} from "../model.js";
 import {addToFavorite} from "../BookPageController.js";
 import {applyFilters} from "./searchingBookFiltr.js";
 import {fetchBooks, selectBookPage} from "../viewLibraryPage.js";
+import {manageLoadMoreButton} from "../viewLibraryPage/viewLoadPageView.js";
 
 
 let currentBatch = 10;
@@ -51,6 +52,9 @@ export function showSearchingBooks() {
               </div>
         </div>
         <div id="viewSearch" class="viewBooks"></div>
+        <div id="mainContainer" class="main-container">
+            <button id="loadMoreBooks" class="load-more" style="display:none;">Load More Books</button>
+            </div>
        
 
         </div>
@@ -133,10 +137,10 @@ export function showSearchingBooks() {
             });
         }
 
-        applyFilters(activeFilters);
-
-        currentBatch = 10;
-        renderBooksForSearch(filteredBooks);
+        applyFilters(activeFilters, sortedBooks);
+filterBooks();
+        
+        
     });
 
     document.getElementById('filterByGenre').addEventListener('click', () => {
@@ -236,11 +240,11 @@ function filterBooks() {
 
     let filteredBooks = sortedBooks.filter(book => {
         let year = parseInt(book.year, 10);
-        let matchesYear = (!isNaN(yearFrom) ? year >= yearFrom : true) &&
+        const matchesYear = (!isNaN(yearFrom) ? year >= yearFrom : true) &&
             (!isNaN(yearTo) ? year <= yearTo : true);
-        let matchesGenre = selectedGenres.length
-            ? selectedGenres.some(genre => book.genre.toLowerCase().includes(genre))
-            : true;
+        const matchesGenre = selectedGenres.length === 0 || selectedGenres.some(genre =>
+            book.genre && book.genre.toLowerCase().includes(genre)
+        );
 
         return matchesYear && matchesGenre;
     });
@@ -266,6 +270,7 @@ export function updateFilterTags(filters, sortedBooks) {
                 filter.remove();
             }
             applyFilters(activeFilters, sortedBooks);
+            filterBooks();
         });
         tag.appendChild(textSpan);
         tag.appendChild(removeButton);

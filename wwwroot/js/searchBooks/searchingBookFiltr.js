@@ -19,9 +19,12 @@ export function applyFilters(activeFilters, sortedBooks = []) {
         }
 
         if (filter.type === 'genre') {
-            let genre = filter.label.toLowerCase();
+            let selectedGenres = activeFilters
+                .filter(f => f.type === 'genre')
+                .map(f => f.label.toLowerCase());
+            
             filteredBooks = filteredBooks.filter(book =>
-                book.genre && book.genre.toLowerCase().includes(genre)
+                selectedGenres.some(genre => book.genre && book.genre.toLowerCase().includes(genre))
             );
         }
     });

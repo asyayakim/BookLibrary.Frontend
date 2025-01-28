@@ -30,10 +30,8 @@ export function renderBooks(books) {
     const contentDiv = document.getElementById('viewBooks'); // Correct container
     contentDiv.innerHTML = '';
     contentDiv.className = 'books-list';
-
-
+    
     function loadBooks() {
-        console.log(currentBatch, batchSize, books);
         const booksToDisplay = books.slice(currentBatch, currentBatch + batchSize);
 
         booksToDisplay.forEach(book => {
@@ -79,11 +77,11 @@ export function renderBooks(books) {
         });
 
         currentBatch += batchSize;
-        toggleLoadMoreButton();
+        toggleLoadMoreButton(books);
         attachDeleteEventHandlers();
     }
 
-    function toggleLoadMoreButton() {
+    function toggleLoadMoreButton(books) {
         const loadMoreButton = document.getElementById("loadMoreBooks");
         if (loadMoreButton) {
             if (currentBatch >= books.length) {
@@ -99,7 +97,7 @@ export function renderBooks(books) {
     loadBooks();
 }
 
-function manageLoadMoreButton(loadBooks) {
+export function manageLoadMoreButton(loadBooks) {
     const mainContainer = document.getElementById('mainContainer');
     let loadMoreButton = document.getElementById('loadMoreBooks');
 
