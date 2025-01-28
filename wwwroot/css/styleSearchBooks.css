@@ -40,6 +40,7 @@ h2 {
     padding-left: 10px;
 }
 
+
 .sort-options label {
     display: block;
     margin-bottom: 10px;
@@ -134,19 +135,28 @@ button:hover {
 }
 
 .filter-tag {
-    background-color: #00cec9;
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 5px;
+    background-color: #e75c5c;
+    color: #ffffff;
+    padding-left: 20px;
+    border-radius: 25px;
     cursor: pointer;
     font-size: 14px;
     display: inline-block;
 }
 
 .filter-tag:hover {
-    background-color: #0092b3;
+    background-color: #7a3a14;
 }
 
+.filter-tag .remove-button {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: 4px;
+}
 
-
-
+.filter-tag .remove-button:hover {
+    color: #ffffff;
+}

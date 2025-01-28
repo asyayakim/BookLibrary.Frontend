@@ -113,6 +113,5 @@ function manageLoadMoreButton(loadBooks) {
 
     loadMoreButton.style.display = model.app.currentPage === 'homeLibrary' ? 'block' : 'none';
 
-    // Attach the event listener to load more books
     loadMoreButton.addEventListener('click', loadBooks);
 }

@@ -4,11 +4,10 @@ import {applyFilters} from "./searchingBookFiltr.js";
 import {fetchBooks, selectBookPage} from "../viewLibraryPage.js";
 
 
-
-
 let currentBatch = 10;
 let sortedBooks = [];
-let activeFilters = [];
+export let activeFilters = [];
+
 export function showSearchingBooks() {
 
     document.getElementById('content').innerHTML = `
@@ -57,24 +56,46 @@ export function showSearchingBooks() {
         </div>
         `;
     fetchBooks();
+    let filterTagsDiv = document.getElementById('filterTags');
+    filterTagsDiv.innerHTML = '';
+    activeFilters.forEach(filter => {
+        let tag = document.createElement('div');
+        tag.className = 'filter-tag';
+        let textSpan = document.createElement('span');
+        textSpan.textContent = filter.label;
+        let removeButton = document.createElement('button');
+        removeButton.textContent = '✕'; 
+        removeButton.className = 'remove-button';
+
+        removeButton.addEventListener('click', () => {
+            activeFilters = activeFilters.filter(f => f !== filter);
+            filter.remove();
+            applyFilters(activeFilters, sortedBooks);
+        });
+
+        tag.appendChild(textSpan);
+        tag.appendChild(removeButton);
+        filterTagsDiv.appendChild(tag);
+    });
+
 
     model.app.currentPage = 'searchBook';
     model.app.searchMode = false;
     document.querySelector('.sort-by-year .sort-header').addEventListener('click', (e) => {
-        const sortOptions = e.target.closest('.sort-by-year').querySelector('.sort-options');
-        const img = e.target.closest('.sort-by-year').querySelector('img');
+        let sortOptions = e.target.closest('.sort-by-year').querySelector('.sort-options');
+        let img = e.target.closest('.sort-by-year').querySelector('img');
         if (sortOptions.style.display === 'none') {
             sortOptions.style.display = 'block';
-            img.src = 'images/caret-down-fill.svg'; 
+            img.src = 'images/caret-down-fill.svg';
         } else {
             sortOptions.style.display = 'none';
-            img.src = 'images/caret-up.svg'; 
+            img.src = 'images/caret-up.svg';
         }
     });
 
     document.querySelector('.sort-by-genre .sort-header').addEventListener('click', (e) => {
-        const sortOptions = e.target.closest('.sort-by-genre').querySelector('.sort-options');
-        const img = e.target.closest('.sort-by-genre').querySelector('img');
+        let sortOptions = e.target.closest('.sort-by-genre').querySelector('.sort-options');
+        let img = e.target.closest('.sort-by-genre').querySelector('img');
         if (sortOptions.style.display === 'none') {
             sortOptions.style.display = 'block';
             img.src = 'images/caret-down-fill.svg';
@@ -112,37 +133,39 @@ export function showSearchingBooks() {
             });
         }
 
-        applyFilters();
-        
+        applyFilters(activeFilters);
+
         currentBatch = 10;
         renderBooksForSearch(filteredBooks);
     });
 
     document.getElementById('filterByGenre').addEventListener('click', () => {
-        const selectedGenres = Array.from(document.querySelectorAll('input[name="genre"]:checked'))
+        let selectedGenres = Array.from(document.querySelectorAll('input[name="genre"]:checked'))
             .map(checkbox => checkbox.value.toLowerCase());
 
         activeFilters = activeFilters.filter(filter => filter.type !== 'genre');
         selectedGenres.forEach(genre => {
             activeFilters.push({
                 type: 'genre',
-                label: `Genre: ${genre}`,
+                label: `${genre}`,
                 remove: () => {
                     document.querySelector(`input[name="genre"][value="${genre}"]`).checked = false;
                 }
             });
         });
 
-        applyFilters(activeFilters);
-        
-        const yearFrom = parseInt(document.getElementById('yearFrom').value, 10);
-        const yearTo = parseInt(document.getElementById('yearTo').value, 10);
+        applyFilters(activeFilters, sortedBooks);
+        filterBooks();
 
-        const filteredBooks = sortedBooks.filter(book => {
-            const year = parseInt(book.year, 10);
-            const matchesYear = (!isNaN(yearFrom) ? year >= yearFrom : true) &&
+
+        let yearFrom = parseInt(document.getElementById('yearFrom').value, 10);
+        let yearTo = parseInt(document.getElementById('yearTo').value, 10);
+
+        let filteredBooks = sortedBooks.filter(book => {
+            let year = parseInt(book.year, 10);
+            let matchesYear = (!isNaN(yearFrom) ? year >= yearFrom : true) &&
                 (!isNaN(yearTo) ? year <= yearTo : true);
-            const matchesGenre = selectedGenres.length
+            let matchesGenre = selectedGenres.length
                 ? selectedGenres.some(genre => book.genre.toLowerCase().includes(genre))
                 : true;
 
@@ -151,14 +174,11 @@ export function showSearchingBooks() {
         currentBatch = 10;
         renderBooksForSearch(filteredBooks);
     });
+
 }
 
 export function renderBooksForSearch(filteredBooks) {
-const contentDiv = document.getElementById('viewSearch');
-    if (!Array.isArray(filteredBooks)) {
-        console.error("filteredBooks is not an array:", filteredBooks);
-        return;
-    }
+    const contentDiv = document.getElementById('viewSearch');
     contentDiv.innerHTML = '';
     contentDiv.className = 'books-list'
     sortedBooks = filteredBooks;
@@ -193,5 +213,62 @@ const contentDiv = document.getElementById('viewSearch');
             }
         });
         contentDiv.appendChild(bookDiv);
+    });
+    if (filteredBooks.length > currentBatch) {
+        const loadMoreButton = document.createElement('button');
+        loadMoreButton.textContent = 'Load More';
+        loadMoreButton.className = 'load-more';
+
+        loadMoreButton.addEventListener('click', () => {
+            currentBatch += 10; 
+            renderBooksForSearch(filteredBooks);
+        });
+
+        contentDiv.appendChild(loadMoreButton);
+    }
+}
+
+function filterBooks() {
+    let yearFrom = parseInt(document.getElementById('yearFrom').value, 10);
+    let yearTo = parseInt(document.getElementById('yearTo').value, 10);
+    let selectedGenres = Array.from(document.querySelectorAll('input[name="genre"]:checked'))
+        .map(checkbox => checkbox.value.toLowerCase());
+
+    let filteredBooks = sortedBooks.filter(book => {
+        let year = parseInt(book.year, 10);
+        let matchesYear = (!isNaN(yearFrom) ? year >= yearFrom : true) &&
+            (!isNaN(yearTo) ? year <= yearTo : true);
+        let matchesGenre = selectedGenres.length
+            ? selectedGenres.some(genre => book.genre.toLowerCase().includes(genre))
+            : true;
+
+        return matchesYear && matchesGenre;
+    });
+    renderBooksForSearch(filteredBooks);
+}
+export function updateFilterTags(filters, sortedBooks) {
+    let filterTagsDiv = document.getElementById('filterTags');
+    filterTagsDiv.innerHTML = '';
+
+
+    filters.forEach(filter => {
+        let tag = document.createElement('div');
+        tag.className = 'filter-tag';
+        let textSpan = document.createElement('span');
+        tag.textContent = filter.label;
+
+        let removeButton = document.createElement('button');
+        removeButton.className = 'remove-button';
+        removeButton.textContent = '✕';
+        removeButton.addEventListener('click', () => {
+            activeFilters = activeFilters.filter(f=>f !== filter);
+            if (filter.remove) {
+                filter.remove();
+            }
+            applyFilters(activeFilters, sortedBooks);
+        });
+        tag.appendChild(textSpan);
+        tag.appendChild(removeButton);
+        filterTagsDiv.appendChild(tag);
     });
 }
