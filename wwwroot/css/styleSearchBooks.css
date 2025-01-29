@@ -35,22 +35,24 @@ h2 {
 }
 
 .sort-options {
-    display: none;
+    display: flex;
+    flex-wrap: wrap;
     margin-top: 10px;
     padding-left: 10px;
 }
 
 
 .sort-options label {
-    display: block;
     margin-bottom: 10px;
     font-size: 14px;
     color: #555;
 }
 
 .sort-options input {
+    /*display: flex;*/
     padding: 15px;
-    width: calc(100% - 20px);
+    background: #e1e8ef;
+    /*width: calc(100% - 20px);*/
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -58,7 +60,8 @@ h2 {
 }
 .sort-options input:focus {
     outline: none;
-    border: 1px solid #c34747;
+    background: #bccee0;
+    border: 1px solid #00cec9;
 }
 button {
     padding: 10px 15px;

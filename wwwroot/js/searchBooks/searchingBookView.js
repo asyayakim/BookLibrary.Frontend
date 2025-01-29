@@ -40,7 +40,7 @@ export function showSearchingBooks() {
                             <input type="checkbox" name="genre" value="mystery"> Mystery
                         </label>
                         <label>
-                            <input type="checkbox" name="genre" value="science fiction"> Science Fiction
+                            <input type="checkbox" name="genre" value="poetry"> Poetry
                         </label>
                         <button id="filterByGenre">Filter</button>
                     </div>
