@@ -8,11 +8,14 @@ export function drawHomePage(){
         document.getElementById('content').innerHTML = `
     <div class="layout-admin-page">
     <div class="background-for-navigation">
+        <img src="/images/crop-woman-reading-cafe.jpg" alt="Background Image" class="background-image">
         <div class="container">
         <h3>Events in the city</h3>
-            
         </div>
-        </div>
+            </div>
+       <div class="events-container">
+                <div class="events" id="events">Noe bla bla</div>
+            </div>
         
         <div id="viewBooks" class="viewBooks"></div>
           <div id="mainContainer" class="main-container">

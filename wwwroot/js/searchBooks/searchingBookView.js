@@ -47,7 +47,7 @@ export function showSearchingBooks() {
                 </div>
         </div>
               <div class="selected-filters">
-              <h3>Selected Filters:</h3>
+              <h2>Selected Filters:</h2>
               <div id="filterTags"></div>
               </div>
         </div>
@@ -218,17 +218,25 @@ export function renderBooksForSearch(filteredBooks) {
         });
         contentDiv.appendChild(bookDiv);
     });
-    if (filteredBooks.length > currentBatch) {
-        const loadMoreButton = document.createElement('button');
-        loadMoreButton.textContent = 'Load More';
+    const mainContainer = document.getElementById('mainContainer');
+    let loadMoreButton = document.getElementById('loadMoreBooks');
+
+    if (!loadMoreButton) {
+        loadMoreButton = document.createElement('button');
+        loadMoreButton.id = 'loadMoreBooks';
         loadMoreButton.className = 'load-more';
+        loadMoreButton.textContent = 'Load More Books';
+        mainContainer.appendChild(loadMoreButton);
+    }
 
-        loadMoreButton.addEventListener('click', () => {
-            currentBatch += 10; 
+    if (filteredBooks.length > currentBatch) {
+        loadMoreButton.style.display = 'block';
+        loadMoreButton.onclick = () => {
+            currentBatch += 10;
             renderBooksForSearch(filteredBooks);
-        });
-
-        contentDiv.appendChild(loadMoreButton);
+        };
+    } else {
+        loadMoreButton.style.display = 'none';
     }
 }
 

@@ -13,7 +13,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 1rem 2rem;
-    background-color: #113068;
+    background-color: #001112;
     color: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -152,7 +152,7 @@ footer .social-links a {
 footer .social-links a:hover {
     text-decoration: underline;
 }
-/* Search Bar */
+
 .search-bar {
     display: flex;
     align-items: center;
@@ -164,7 +164,7 @@ footer .social-links a:hover {
     transition: all 0.3s ease-in-out;
 }
 
-/* Input Field (Hidden by Default) */
+
 .search-bar input {
     display: none;
     width: 0;
@@ -207,7 +207,7 @@ footer .social-links a:hover {
     pointer-events: none; /* Prevent clicks on the image */
 }
 
-/* Button Hover Effect */
+
 .search-bar-button:hover {
     background-color: rgba(0, 0, 0, 0);
 }
