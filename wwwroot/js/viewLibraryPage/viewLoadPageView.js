@@ -2,6 +2,7 @@ import {model} from "../model.js";
 import {fetchBooks, selectBookPage} from "../viewLibraryPage.js";
 import {addToFavorite} from "../BookPageController.js";
 import {attachDeleteEventHandlers} from "./viewLibraryPageController.js";
+import {fetchAndDisplayEvents} from "./viewEventsController.js";
 
 
 export function drawHomePage(){
@@ -24,6 +25,7 @@ export function drawHomePage(){
         </div>
         `;
         fetchBooks();
+    fetchAndDisplayEvents();
         
     }
 let currentBatch = 0;
