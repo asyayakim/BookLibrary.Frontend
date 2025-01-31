@@ -1,0 +1,52 @@
+.popular-books-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: #0092b3;
+    margin-bottom: 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+    position: relative;
+    margin-top: 20px;
+    border-bottom: #262626 solid 1px;
+}
+
+.popular-books {
+    display: flex; 
+    gap: 5rem;
+    padding: 20px;
+    overflow-x: auto;
+}
+
+.popular-books .book-card {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    width: 150px;
+    text-align: center;
+    position: relative;
+}
+
+.book-card img {
+    height: 25vh;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    object-fit: cover;
+}
+
+.book-title h3 {
+    font-size: 1rem;
+    font-weight: bold;
+    margin: 0;
+    color: #ffffff;
+}
+
+.book-title p {
+    font-size: 0.9rem;
+    color: #777;
+    margin: 0;
+}
+.white-title{
+    color: #ffffff;
+    font-family: "Arial", sans-serif;
+}

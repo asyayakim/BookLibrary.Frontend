@@ -3,6 +3,7 @@ import {fetchBooks, selectBookPage} from "../viewLibraryPage.js";
 import {addToFavorite} from "../BookPageController.js";
 import {attachDeleteEventHandlers} from "./viewLibraryPageController.js";
 import {fetchAndDisplayEvents} from "./viewEventsController.js";
+import {showPopularBooks} from "./viewPopularBooksController.js";
 
 
 export function drawHomePage(){
@@ -17,7 +18,10 @@ export function drawHomePage(){
        <div class="events-container">
                 <div class="events" id="events">Noe bla bla</div>
             </div>
-        
+       <div class="popular-books-container">
+       <h3 class="white-title">Popular Books</h3>
+                <div class="popular-books" id="popularBooks">Noe bla bla</div>
+            </div> 
         <div id="viewBooks" class="viewBooks"></div>
           <div id="mainContainer" class="main-container">
             <button id="loadMoreBooks" class="load-more" style="display:none;">Load More Books</button>
@@ -26,6 +30,7 @@ export function drawHomePage(){
         `;
         fetchBooks();
     fetchAndDisplayEvents();
+    showPopularBooks();
         
     }
 let currentBatch = 0;

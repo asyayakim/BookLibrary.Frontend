@@ -84,7 +84,7 @@
 .event-link {
     display: inline-block;
     padding: 0.5rem 1rem;
-    background: #0092b3;
+    background: #00cec9;
     color: white !important;
     border-radius: 5px;
     text-decoration: none;
@@ -92,7 +92,7 @@
 }
 
 .event-link:hover {
-    background: #2551a3;
+    background: #0092b3;
 }
 
 .no-events {
