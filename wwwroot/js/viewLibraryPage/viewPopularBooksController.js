@@ -30,7 +30,7 @@ function renderPopularBooks(books) {
             let truncatedTitle = book.title.length > 30 ? book.title.substring(0, 30) + '...' : book.title;
            
             return `
-                <div class="book-card">
+                <div class="book-card-horizontal">
                     <img src="${book.coverImageUrl || 'images/book.svg'}" alt="${book.title}">
                     <div class="book-title">
                         <h3 title="${book.title}">${truncatedTitle}</h3>

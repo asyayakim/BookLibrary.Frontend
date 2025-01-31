@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     background: #0092b3;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     overflow-x: auto;
     white-space: nowrap;
     position: relative;
@@ -14,11 +14,11 @@
 .popular-books {
     display: flex; 
     gap: 5rem;
-    padding: 20px;
+    padding: 25px;
     overflow-x: auto;
 }
 
-.popular-books .book-card {
+.popular-books .book-card-horizontal {
     display: flex;
     flex-direction: column; 
     align-items: center; 
@@ -27,7 +27,7 @@
     position: relative;
 }
 
-.book-card img {
+.book-card-horizontal img {
     height: 25vh;
     border-radius: 5px;
     margin-bottom: 10px;
@@ -36,9 +36,10 @@
 
 .book-title h3 {
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: normal;
     margin: 0;
     color: #ffffff;
+    font-family: "Arial", sans-serif;
 }
 
 .book-title p {

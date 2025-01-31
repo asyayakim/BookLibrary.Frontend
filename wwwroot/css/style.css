@@ -79,7 +79,13 @@ main {
     gap: 0.8rem;
     /*padding: 2rem;*/
 }
-
+.books-list-view {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive grid */
+    gap: 0.8rem;
+    padding-left: 6rem;
+    padding-right: 6rem;
+}
 .book {
     text-align: center;
     position: relative;

@@ -39,7 +39,7 @@ let batchSize = 10;
 export function renderBooks(books) {
     const contentDiv = document.getElementById('viewBooks'); // Correct container
     contentDiv.innerHTML = '';
-    contentDiv.className = 'books-list';
+    contentDiv.className = 'books-list-view';
     
     function loadBooks() {
         const booksToDisplay = books.slice(currentBatch, currentBatch + batchSize);

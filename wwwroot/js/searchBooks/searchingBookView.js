@@ -184,7 +184,7 @@ filterBooks();
 export function renderBooksForSearch(filteredBooks) {
     const contentDiv = document.getElementById('viewSearch');
     contentDiv.innerHTML = '';
-    contentDiv.className = 'books-list'
+    contentDiv.className = 'books-list-view'
     sortedBooks = filteredBooks;
     const booksToDisplay = filteredBooks.slice(0, currentBatch);
     booksToDisplay.forEach(book => {
