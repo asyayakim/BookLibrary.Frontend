@@ -13,7 +13,7 @@ export function showSearchingBooks() {
 
     document.getElementById('content').innerHTML = `
     <div class="search-layout">
-    <div class="background-for-navigation">
+    <div class="background-for-search">
        <h2>Search books by</h2>
         <div class="search">
             <div class="sort-by-year">
@@ -184,7 +184,7 @@ filterBooks();
 export function renderBooksForSearch(filteredBooks) {
     const contentDiv = document.getElementById('viewSearch');
     contentDiv.innerHTML = '';
-    contentDiv.className = 'books-list-view'
+    contentDiv.className = 'books-list'
     sortedBooks = filteredBooks;
     const booksToDisplay = filteredBooks.slice(0, currentBatch);
     booksToDisplay.forEach(book => {

@@ -3,7 +3,6 @@ h2 {
     font-size: 24px;
     margin-bottom: 20px;
     color: #444;
-    border-bottom: 1px solid #1e293b;
 }
 
 .search {
@@ -11,6 +10,8 @@ h2 {
     flex-direction: column;
     gap: 20px;
     padding: 0 10%;
+    position: relative;
+    z-index: 2;
 }
 
 
@@ -38,9 +39,16 @@ h2 {
     display: flex;
     flex-wrap: wrap;
     margin-top: 10px;
-    padding-left: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
 }
-
+.background-for-search{
+    position: relative;
+    background-color: #ffffff;
+    min-height: 44vh;
+    padding-bottom: 2rem;
+}
 
 .sort-options label {
     margin-bottom: 10px;
@@ -53,7 +61,7 @@ h2 {
     padding: 15px;
     background: #e1e8ef;
     /*width: calc(100% - 20px);*/
-    margin-top: 5px;
+    margin: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
@@ -77,7 +85,16 @@ button {
 button:hover {
     background: #0092b3;
 }
-
+.books-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive grid */
+    gap: 0.8rem;
+    padding-top: 0;
+    margin-top: 2rem; 
+    padding-left: 6rem;
+    padding-right: 6rem;
+    transition: margin-top 0.3s ease;
+}
 
 .load-more {
     display: block;
@@ -96,7 +113,11 @@ button:hover {
     background: #7a3a14;
 }
 
-
+.sort-by-year.active + .sort-options,
+.sort-by-genre.active + .sort-options {
+    display: flex;
+    margin-bottom: 2rem;
+}
 .sort-by-year.active img,
 .sort-by-genre.active img {
     transform: rotate(180deg);
@@ -109,20 +130,30 @@ button:hover {
 @media (max-width: 768px) {
     .search {
         flex-direction: column;
-        align-items: center;
         padding: 0 5%;
     }
-
+    .books-list {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-top: 3rem;
+    }
     .sort-by-year,
     .sort-by-genre {
         max-width: 100%; 
         text-align: center;
     }
+    #filterTags {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+    .background-for-search{
+        min-height: auto;
+        padding-bottom: 1rem;
+    }
 }
 .selected-filters {
-    margin-top: 20px;
-    padding: 10px;
-    border-top: 1px solid #ccc;
+    margin: 1rem 0;
+    padding: 0 6rem;
 }
 
 .selected-filters h3 {
@@ -135,6 +166,9 @@ button:hover {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    
 }
 
 .filter-tag {

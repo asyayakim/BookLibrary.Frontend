@@ -73,12 +73,7 @@ main {
     text-align: center;
 }
 
-.books-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive grid */
-    gap: 0.8rem;
-    /*padding: 2rem;*/
-}
+
 .books-list-view {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive grid */
