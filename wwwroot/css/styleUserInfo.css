@@ -1,0 +1,147 @@
+#changePersonalInformation {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+  
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto 2rem auto;
+}
+
+#changePersonalInformation h2 {
+    font-size: 24px;
+    margin-bottom: 1.5rem;
+    color: #333;
+    border-bottom: 2px solid #00b8a9;
+    padding-bottom: 0.5rem;
+}
+
+#changePersonalInformation label {
+    display: block;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 0.5rem;
+}
+
+#changePersonalInformation input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+#changePersonalInformation input:focus {
+    outline: none;
+    border-color: #00b8a9;
+    background-color: #f0f8ff;
+}
+
+.registerButtons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+.registerButtons button {
+    padding: 10px 20px;
+    background-color: #00b8a9;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.registerButtons button:hover {
+    background-color: #009688;
+}
+
+#bookLoanedByUser {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+#bookLoanedByUser h3 {
+    font-size: 20px;
+    margin-bottom: 1.5rem;
+    color: #333;
+    border-bottom: 2px solid #00b8a9;
+    padding-bottom: 0.5rem;
+}
+
+.loaned-books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+    gap: 1.5rem;
+    padding: 0 1rem;
+}
+
+.loaned-book {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.loaned-book img {
+    width: 150px;
+    height: 200px; 
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+.loaned-book h3 {
+    font-size: 18px;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.loaned-book .loan-date {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.loaned-book .returnButton {
+    padding: 8px 16px;
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.loaned-book .returnButton:hover {
+    background-color: #c0392b;
+}
+
+@media (max-width: 768px) {
+    #changePersonalInformation, #bookLoanedByUser {
+        padding: 1rem;
+    }
+
+    .loaned-books-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+
+    .loaned-book img {
+        width: 120px; 
+        height: 160px; 
+    }
+}

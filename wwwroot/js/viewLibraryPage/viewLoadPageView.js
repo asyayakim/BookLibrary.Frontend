@@ -19,7 +19,7 @@ export function drawHomePage(){
                 <div class="events" id="events">Noe bla bla</div>
             </div>
        <div class="popular-books-container">
-       <h3 class="white-title">Popular Books</h3>
+       <h3 class="white-title">Popular Books Now</h3>
                 <div class="popular-books" id="popularBooks">Noe bla bla</div>
             </div> 
         <div id="viewBooks" class="viewBooks"></div>

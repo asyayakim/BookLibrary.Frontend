@@ -15,7 +15,6 @@ export async function viewUserInfo() {
             <div class = "registerButtons">
             <button type="submit">Confirm</button>
              </div>
-        <h3>Loaned Books</h3>
         </form>
         <div id="bookLoanedByUser"></div>
     `;
@@ -34,24 +33,32 @@ export function renderLoanedBooks(loanedBooks) {
         contentDiv.innerHTML = '<p>No loaned books found.</p>';
         return;
     }
-    console.log(loanedBooks);
-    contentDiv.innerHTML = '';
+    contentDiv.innerHTML = `
+        <h3>Loaned Books</h3>
+        <div class="loaned-books-grid"></div>
+    `;
+
+    const gridContainer = contentDiv.querySelector('.loaned-books-grid');
     loanedBooks.forEach((book) => {
         const bookDiv = document.createElement('div');
-        bookDiv.className = 'selected-book';
+        bookDiv.className = 'loaned-book';
+
+        // Format the loan date
+        const loanDate = new Date(book.loanDate).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+        });
+
         bookDiv.innerHTML = `
-     <div class="book">
-     <img src="${book.coverImageUrl || 'images/book.svg'}" alt="${book.title}" style="width:100%; height:auto; background-color: #00b8a9 border-radius:5px; margin-bottom:10px;">
+            <img src="${book.coverImageUrl || 'images/book.svg'}" alt="${book.title}">
             <h3>${book.title}</h3>
-            <p><strong>ISBN:</strong> ${book.isbn}</p>
-            <p><strong>Loan Date:</strong> ${book.loanDate}</p>
-            <div>
-                  <button type="button" class="returnButton" data-isbn="${book.isbn}" >Return Book</button>
-            </div>
-        </div>
-          `;
-        contentDiv.appendChild(bookDiv);
+            <p class="loan-date">Loaned on: ${loanDate}</p>
+            <button type="button" class="returnButton" data-isbn="${book.isbn}">Return Book</button>
+        `;
+        gridContainer.appendChild(bookDiv);
     });
+
     const returnButtons = document.querySelectorAll('.returnButton');
     returnButtons.forEach((button) => {
         button.addEventListener('click', async () => {
