@@ -3,7 +3,8 @@
 This is the frontend for the **BookLibrary** project, built with **HTML, CSS, and JavaScript**. It provides a user-friendly interface for interacting with the library system.  
 
 ### ✨ Features  
-- 📖 **View Books** – Browse a list of available books.  
+- 📖 **View Books** – Browse a list of available books.
+- 👑 **Show TOP10 Books** - Show top 10 loaned books in the library.
 - 🔍 **Advanced Search** – Search books by title, author, year, or genre.  
 - ⭐ **Favorites** – Add books to your favorites list.  
 - 📅 **Events** – View a list of upcoming library events.  
