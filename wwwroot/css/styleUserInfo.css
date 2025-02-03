@@ -2,12 +2,24 @@
     background-color: #ffffff;
     padding: 2rem;
     border-radius: 8px;
-  
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     max-width: 800px;
     margin: 0 auto 2rem auto;
 }
+.book-info-layout {
+    display: flex;
+    gap: 2rem; 
+    max-width: 1200px;
+    margin: 0 auto; 
+    padding: 0 1rem; 
+}
 
+#bookLoanedByUser, #favoriteBooks {
+    flex: 1; 
+    background-color: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 #changePersonalInformation h2 {
     font-size: 24px;
     margin-bottom: 1.5rem;
@@ -24,7 +36,7 @@
 }
 
 #changePersonalInformation input {
-    width: 100%;
+    width: 50%;
     padding: 10px;
     margin-bottom: 1rem;
     border: 1px solid #ccc;
@@ -60,7 +72,7 @@
     background-color: #009688;
 }
 
-#bookLoanedByUser {
+#bookLoanedByUser,#favoriteBooks {
     background-color: #ffffff;
     padding: 2rem;
     border-radius: 8px;
@@ -68,7 +80,7 @@
     max-width: 1200px;
 }
 
-#bookLoanedByUser h3 {
+#bookLoanedByUser h3, #favoriteBooks h3 {
     font-size: 20px;
     margin-bottom: 1.5rem;
     color: #333;
@@ -76,14 +88,14 @@
     padding-bottom: 0.5rem;
 }
 
-.loaned-books-grid {
+.loaned-books-grid, .favorite-books-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
     gap: 1.5rem;
     padding: 0 1rem;
 }
 
-.loaned-book {
+.loaned-book, .favorite-book {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -92,9 +104,11 @@
     border-radius: 8px;
     background-color: #f9f9f9;
     text-align: center;
+    position: relative;
+    height: 100%;
 }
 
-.loaned-book img {
+.loaned-book img, .favorite-book img {
     width: 150px;
     height: 200px; 
     object-fit: cover;
@@ -102,7 +116,7 @@
     margin-bottom: 1rem;
 }
 
-.loaned-book h3 {
+.loaned-book h3, .favorite-book h3 {
     font-size: 18px;
     margin-bottom: 0.5rem;
     color: #333;
@@ -114,8 +128,12 @@
     margin-bottom: 1rem;
     font-style: italic;
 }
-
+.loaned-book .button-container, .favorite-book .button-container {
+    margin-top: auto; 
+    width: 100%; 
+}
 .loaned-book .returnButton {
+    width: 100%;
     padding: 8px 16px;
     background-color: #e74c3c;
     color: #fff;
@@ -129,10 +147,38 @@
 .loaned-book .returnButton:hover {
     background-color: #c0392b;
 }
+.favorite-book  .bookmark {
+    position: absolute;
+    background: #000000;
+    top: 8px;
+    left: 8px;
+    bottom: 8px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    border-radius: 5%;
+    border: 6px solid #000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    transition: transform 0.3s;
+}
+.favorite-book .bookmark:hover {
+    transform: scale(1.1);
+    background-color: #262626;
+    border: 8px solid #262626;
+}
+.favorite-book .bookmark svg {
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+}
 
 @media (max-width: 768px) {
-    #changePersonalInformation, #bookLoanedByUser {
-        padding: 1rem;
+    .loaned-books-grid, .favorite-books-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
     }
 
     .loaned-books-grid {
@@ -140,7 +186,7 @@
         gap: 1rem;
     }
 
-    .loaned-book img {
+    .loaned-book img, .favorite-book img  {
         width: 120px; 
         height: 160px; 
     }

@@ -1,5 +1,7 @@
 import {registerNewUser} from "../registerNewUserController.js";
-import {returnBook, showLoanedBooks} from "./viewUserInfoController.js";
+import {fetchFavoriteBooks, returnBook, showLoanedBooks} from "./viewUserInfoController.js";
+import {model} from "../model.js";
+import {addToFavorite} from "../BookPageController.js";
 
 export async function viewUserInfo() {
     const contentDiv = document.getElementById('content');
@@ -16,7 +18,10 @@ export async function viewUserInfo() {
             <button type="submit">Confirm</button>
              </div>
         </form>
+        <div class="book-info-layout">
         <div id="bookLoanedByUser"></div>
+        <div id="favoriteBooks"></div>
+        </div>
     `;
     document.getElementById('changePersonalInformation').addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -25,8 +30,40 @@ export async function viewUserInfo() {
         await registerNewUser(username, password);
     });
     await showLoanedBooks();
+    await fetchFavoriteBooks();
 }
-
+export function renderFavoriteBooks(favBooks) {
+    const contentDiv = document.getElementById('favoriteBooks');
+    if (!favBooks || favBooks.length === 0) {
+        contentDiv.innerHTML = `<p>No favorite books yet</p>`;
+    }
+    contentDiv.innerHTML = `
+    <h3>Favorite books</h3>
+     <div class="favorite-books-grid"></div>
+    `;
+    const gridContainer = contentDiv.querySelector('.favorite-books-grid');
+    favBooks.forEach((book) => {
+        const bookDiv = document.createElement('div');
+        bookDiv.className = 'favorite-book';
+        
+        bookDiv.innerHTML = `
+            <img src="${book.coverImageUrl || 'images/book.svg'}" alt="${book.title}">
+            <img class="bookmark" src="/images/bookmark-fill.svg" alt="bookmark">
+            <h3>${book.title}</h3>
+        `;
+        gridContainer.appendChild(bookDiv);
+    
+    const bookmarkButton = bookDiv.querySelector(".bookmark");
+    bookmarkButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        if (model.app.isLoggedIn) {
+            addToFavorite(book);
+        } else {
+            alert('Please log in to add to favorites.');
+        }
+    });
+    });
+}
 export function renderLoanedBooks(loanedBooks) {
     const contentDiv = document.getElementById('bookLoanedByUser');
     if (!loanedBooks || loanedBooks.length === 0) {
@@ -43,18 +80,18 @@ export function renderLoanedBooks(loanedBooks) {
         const bookDiv = document.createElement('div');
         bookDiv.className = 'loaned-book';
 
-        // Format the loan date
         const loanDate = new Date(book.loanDate).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
         });
-
         bookDiv.innerHTML = `
             <img src="${book.coverImageUrl || 'images/book.svg'}" alt="${book.title}">
             <h3>${book.title}</h3>
             <p class="loan-date">Loaned on: ${loanDate}</p>
-            <button type="button" class="returnButton" data-isbn="${book.isbn}">Return Book</button>
+            <div class="button-container">
+                <button type="button" class="returnButton" data-isbn="${book.isbn}">Return Book</button>
+            </div>
         `;
         gridContainer.appendChild(bookDiv);
     });
