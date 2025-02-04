@@ -59,6 +59,7 @@ export function showSearchingBooks() {
 
         </div>
         `;
+    
     fetchBooks();
     let filterTagsDiv = document.getElementById('filterTags');
     filterTagsDiv.innerHTML = '';
@@ -175,7 +176,7 @@ filterBooks();
 
             return matchesYear && matchesGenre;
         });
-        currentBatch = 10;
+        currentBatch = 9;
         renderBooksForSearch(filteredBooks);
     });
 
@@ -205,6 +206,9 @@ export function renderBooksForSearch(filteredBooks) {
         }
             </div>
     `;
+        //bookDiv.addEventListener('click', () => selectBookPage(book.id));
+    
+
 
         bookDiv.addEventListener('click', () => selectBookPage(book.id));
         const bookmarkButton = bookDiv.querySelector(".bookmark");

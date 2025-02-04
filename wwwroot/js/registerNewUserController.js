@@ -13,7 +13,7 @@ export async function  registerNewUser(username, password){
         if (!response.ok) {
             const errorMessage = await response.text();
             console.error("Error during login:", errorMessage);
-            throw new Error("Registration failed");
+            alert(errorMessage);
         }
         if (response.ok) {
             const data = await response.json();

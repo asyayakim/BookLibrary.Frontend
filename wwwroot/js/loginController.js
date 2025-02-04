@@ -11,7 +11,7 @@ export async function authenticateUser(username, password) {
         if (!response.ok) {
             const errorMessage = await response.text();
             console.error("Error during login:", errorMessage);
-            throw new Error("Login failed");
+            alert("Incorrect username or password");
         }
         if (response.ok) {
             const data = await response.json();

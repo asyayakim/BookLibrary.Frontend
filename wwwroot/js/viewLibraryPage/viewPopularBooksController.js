@@ -1,4 +1,5 @@
 import {renderLoanedBooks} from "../userInfo/viewUserInfo.js";
+import {selectBookPage} from "../viewLibraryPage.js";
 
 
 
@@ -24,19 +25,30 @@ export async function showPopularBooks() {
 }
 function renderPopularBooks(books) {
     const container = document.getElementById('popularBooks');
+    container.innerHTML = '';
+    if (books.length === 0) {
+        container.innerHTML = '<p>No popular books found.</p>';
+        return;
+    }
+    books.forEach(book => {
+        let truncatedTitle = book.title.length > 30 ? book.title.substring(0, 30) + '...' : book.title;
 
-    container.innerHTML = books.length > 0
-        ? books.map(book => {
-            let truncatedTitle = book.title.length > 30 ? book.title.substring(0, 30) + '...' : book.title;
-           
-            return `
-                <div class="book-card-horizontal">
-                    <img src="${book.coverImageUrl || 'images/book.svg'}" alt="${book.title}">
-                    <div class="book-title">
-                        <h3 title="${book.title}">${truncatedTitle}</h3>
-                    </div>
-                </div>
-            `;
-        }).join('')
-        : '<p>No popular books found.</p>';
+        const bookDiv = document.createElement('div');
+        bookDiv.className = 'book-card-horizontal';
+        bookDiv.innerHTML = `
+            <img src="${book.coverImageUrl || 'images/book.svg'}" alt="${book.title}">
+            <div class="book-title">
+                <h3 title="${book.title}">${truncatedTitle}</h3>
+            </div>
+        `;
+        // bookDiv.addEventListener('click', () => {
+        //     if (!book.id) {
+        //         console.error("Error: Book has no ID", book);
+        //         return;
+        //     }
+        //     selectBookPage(book.id);
+        // });
+
+        container.appendChild(bookDiv);
+    });
 }

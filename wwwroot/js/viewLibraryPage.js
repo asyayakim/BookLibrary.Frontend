@@ -10,10 +10,6 @@ import {renderBooks} from "./viewLibraryPage/viewLoadPageView.js";
 
 
 const API_URL = 'http://localhost:5294/api/Book';
-const contentDiv = document.getElementById('content');
-
-
-
 export async function fetchBooks() {
     try {
         const response = await fetch(API_URL);
@@ -36,6 +32,10 @@ export async function fetchBooks() {
 }
 
 export function selectBookPage(bookId) {
+    if (!bookId) {
+        console.error("❌ Error: No book ID provided to selectBookPage");
+        return;
+    }
     model.app.currentBookId = bookId;
     model.app.currentPage = "selectedBookPage";
     updateView();

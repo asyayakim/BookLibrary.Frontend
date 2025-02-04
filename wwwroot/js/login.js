@@ -6,6 +6,7 @@ import {handleLogout} from "./app.js";
 export function updateViewLogin() {
     const contentDiv = document.getElementById('content');
     contentDiv.innerHTML = `
+ 
         <h2>Login</h2>
         <form id="loginForm">
             <label for="username">Username:</label>
@@ -18,6 +19,7 @@ export function updateViewLogin() {
              </div>
             
         </form>
+     
     `;
 
     if (model.app.isLoggedIn) {

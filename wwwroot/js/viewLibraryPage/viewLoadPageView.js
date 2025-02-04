@@ -35,7 +35,7 @@ export function drawHomePage(){
         
     }
 let currentBatch = 0;
-let batchSize = 10;
+let batchSize = 9;
 
 export function renderBooks(books) {
     const contentDiv = document.getElementById('viewBooks'); // Correct container

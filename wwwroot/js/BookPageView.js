@@ -8,6 +8,10 @@ const contentDiv = document.getElementById('content');
 export async function selectBook()
 {
     const bookId = model.app.currentBookId;
+    if (!bookId) {
+        console.error("❌ Error: No book ID found in model.app.currentBookId");
+        return;
+    }
     try {
         const response = await fetch(`${API_URL}/${bookId}`, {
             method: 'GET',

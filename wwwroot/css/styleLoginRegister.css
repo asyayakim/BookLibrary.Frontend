@@ -1,0 +1,176 @@
+
+
+#loginForm {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0);
+   
+}
+
+#loginForm h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+    color: #6c5ce7;
+    text-align: center;
+}
+
+#loginForm label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+#loginForm input {
+    width: 88%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+#loginForm input:focus {
+    border-color: #6c5ce7;
+    outline: none;
+    box-shadow: 0 0 5px rgba(108, 92, 231, 0.3);
+}
+
+
+.registerButtons {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+
+#loginForm button {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#loginForm button[type="submit"] {
+    background-color: #6c5ce7;
+    color: white;
+}
+
+#loginForm button[type="submit"]:hover {
+    background-color: #5a4ad1;
+    transform: translateY(-2px);
+}
+
+#loginForm button#registrationButton {
+    background-color: #00cec9;
+    color: white;
+}
+
+#loginForm button#registrationButton:hover {
+    background-color: #00b8a9;
+    transform: translateY(-2px);
+}
+
+
+@media (max-width: 480px) {
+    #loginForm {
+        padding: 1.5rem;
+    }
+
+    .registerButtons {
+        flex-direction: column;
+    }
+
+    #loginForm button {
+        width: 100%;
+    }
+}
+
+
+
+
+#registrationForm {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+
+#registrationForm h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+    color: #6c5ce7;
+    text-align: center;
+}
+
+#registrationForm label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+
+#registrationForm input {
+    width: 88%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+#registrationForm input:focus {
+    border-color: #6c5ce7;
+    outline: none;
+    box-shadow: 0 0 5px rgba(108, 92, 231, 0.3);
+}
+
+
+.registerButtons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+
+#registrationForm button[type="submit"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: #6c5ce7;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#registrationForm button[type="submit"]:hover {
+    background-color: #5a4ad1;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 480px) {
+    #registrationForm {
+        padding: 1.5rem;
+    }
+}

@@ -2,6 +2,7 @@ import {registerNewUser} from "../registerNewUserController.js";
 import {fetchFavoriteBooks, removeFromFavorite, returnBook, showLoanedBooks} from "./viewUserInfoController.js";
 import {model} from "../model.js";
 import {addToFavorite} from "../BookPageController.js";
+import {selectBookPage} from "../viewLibraryPage.js";
 
 export async function viewUserInfo() {
     const contentDiv = document.getElementById('content');
@@ -10,7 +11,7 @@ export async function viewUserInfo() {
        <h2>Change user info</h2>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
-            <label for="password">Password*:</label>
+            <label for="password">Change Password:</label>
             <input type="password" id="password" name="password" required>
             <label for="confirmPassword">Confirm Password*:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
@@ -56,8 +57,17 @@ export function renderFavoriteBooks(favBooks) {
         `;
         gridContainer.appendChild(bookDiv);
         createBookmarks(isFavorite, book, bookDiv);
+        bookDiv.addEventListener('click', () => {
+            if (!book.id) {
+                console.error("❌ Error: Book has no ID", book);
+                return;
+            }
+            selectBookPage(book.id);
+        });
+
     });
 }
+
 export function createBookmarks(isFavorite, book, bookDiv) {
     const bookmarkButton = bookDiv.querySelector(".bookmark");
     bookmarkButton.addEventListener('click', async (event) => {
@@ -109,6 +119,7 @@ export function renderLoanedBooks(loanedBooks) {
             </div>
         `;
         gridContainer.appendChild(bookDiv);
+ //   bookDiv.addEventListener('click', () => selectBookPage(book.id));
     });
 
     const returnButtons = document.querySelectorAll('.returnButton');
