@@ -55,29 +55,30 @@ export function renderFavoriteBooks(favBooks) {
             <h4>${book.title}</h4>
         `;
         gridContainer.appendChild(bookDiv);
-        
-        console.log(isFavorite);
-        const bookmarkButton = bookDiv.querySelector(".bookmark");
-        bookmarkButton.addEventListener('click', async (event) => {
-            event.stopPropagation();
-            if (!model.app.isLoggedIn) {
-                alert("Please log in to manage favorites.");
-                return;
-            }
-
-            if (isFavorite) {
-                await removeFromFavorite(book);
-                model.app.favorite = model.app.favorite.filter(isbn => isbn !== book.isbn);
-                bookmarkButton.src = "/images/bookmark-fill.svg";
-            } else {
-                await addToFavorite(book);
-                model.app.favorite.push(book.isbn);
-                bookmarkButton.src = "/images/bookmark-check-fill.svg";
-            }
-        });
+        createBookmarks(isFavorite, book, bookDiv);
     });
 }
+export function createBookmarks(isFavorite, book, bookDiv) {
+    const bookmarkButton = bookDiv.querySelector(".bookmark");
+    bookmarkButton.addEventListener('click', async (event) => {
+        event.stopPropagation();
+        if (!model.app.isLoggedIn) {
+            alert("Please log in to manage favorites.");
+            return;
+        }
 
+        if (isFavorite) {
+            await removeFromFavorite(book);
+            model.app.favorite = model.app.favorite.filter(isbn => isbn !== book.isbn);
+            bookmarkButton.src = "/images/bookmark-fill.svg";
+        } else {
+            await addToFavorite(book);
+            model.app.favorite.push(book.isbn);
+            bookmarkButton.src = "/images/bookmark-check-fill.svg";
+        }
+        isFavorite = !isFavorite;
+    });
+}
 export function renderLoanedBooks(loanedBooks) {
     const contentDiv = document.getElementById('bookLoanedByUser');
     if (!loanedBooks || loanedBooks.length === 0) {

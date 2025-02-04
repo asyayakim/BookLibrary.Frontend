@@ -43,6 +43,7 @@ export async function returnBook(book) {
 
 }
 export async function fetchFavoriteBooks() {
+    if (!model.app.loggedInUser) return;
     const userId = model.app.loggedInUser;
     const API_URL = `http://localhost:5294/api/books/showFavorite?userId=${userId}`;
     try {

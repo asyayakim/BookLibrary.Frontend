@@ -4,6 +4,7 @@ import {addToFavorite} from "../BookPageController.js";
 import {attachDeleteEventHandlers} from "./viewLibraryPageController.js";
 import {fetchAndDisplayEvents} from "./viewEventsController.js";
 import {showPopularBooks} from "./viewPopularBooksController.js";
+import {createBookmarks} from "../userInfo/viewUserInfo.js";
 
 
 export function drawHomePage(){
@@ -49,10 +50,11 @@ export function renderBooks(books) {
             bookDiv.className = 'book';
             let truncatedTitle = book.title.length > 20 ? book.title.substring(0, 20) + '...' : book.title;
             let truncatedAuthor = book.author.length > 15 ? book.author.substring(0, 15) + '...' : book.author;
-
+            const isFavorite = model.app.favorite && model.app.favorite.includes(book.isbn);
+            const bookmarkIcon = isFavorite ? "/images/bookmark-check-fill.svg" : "/images/bookmark-fill.svg";
             bookDiv.innerHTML = `
                 <img src="${book.coverImageUrl || 'images/book.svg'}" alt="${book.title}" style="width:100%; height:auto; border-radius:5px; margin-bottom:10px;">
-                <img class="bookmark" src="/images/bookmark-fill.svg" alt="bookmark">
+                <img class="bookmark" src=" ${bookmarkIcon}" alt="bookmark">
                 <div class="book-info">
                     <h3 title="${book.title}">${truncatedTitle}</h3>
                     <p><strong>Author:</strong> ${truncatedAuthor}</p>
@@ -63,6 +65,7 @@ export function renderBooks(books) {
             }
                 </div>
             `;
+            createBookmarks(isFavorite, book, bookDiv);
             const DeleteButtons = document.querySelectorAll('.deleteButton');
             DeleteButtons.forEach((button) => {
                 button.addEventListener('click', async () => {
