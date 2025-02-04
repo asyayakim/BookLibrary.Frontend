@@ -1,5 +1,5 @@
 import {registerNewUser} from "../registerNewUserController.js";
-import {fetchFavoriteBooks, returnBook, showLoanedBooks} from "./viewUserInfoController.js";
+import {fetchFavoriteBooks, removeFromFavorite, returnBook, showLoanedBooks} from "./viewUserInfoController.js";
 import {model} from "../model.js";
 import {addToFavorite} from "../BookPageController.js";
 
@@ -32,6 +32,7 @@ export async function viewUserInfo() {
     await showLoanedBooks();
     await fetchFavoriteBooks();
 }
+
 export function renderFavoriteBooks(favBooks) {
     const contentDiv = document.getElementById('favoriteBooks');
     if (!favBooks || favBooks.length === 0) {
@@ -45,25 +46,38 @@ export function renderFavoriteBooks(favBooks) {
     favBooks.forEach((book) => {
         const bookDiv = document.createElement('div');
         bookDiv.className = 'favorite-book';
-        
+        console.log(model.app.favorite);
+        const isFavorite = model.app.favorite.includes(book.isbn);
+        const bookmarkIcon = isFavorite ? "/images/bookmark-check-fill.svg" : "/images/bookmark-fill.svg";
         bookDiv.innerHTML = `
             <img src="${book.coverImageUrl || 'images/book.svg'}" alt="${book.title}">
-            <img class="bookmark" src="/images/bookmark-fill.svg" alt="bookmark">
-            <h3>${book.title}</h3>
+            <img class="bookmark" src="${bookmarkIcon}" alt="bookmark">
+            <h4>${book.title}</h4>
         `;
         gridContainer.appendChild(bookDiv);
-    
-    const bookmarkButton = bookDiv.querySelector(".bookmark");
-    bookmarkButton.addEventListener('click', (event) => {
-        event.stopPropagation();
-        if (model.app.isLoggedIn) {
-            addToFavorite(book);
-        } else {
-            alert('Please log in to add to favorites.');
-        }
-    });
+        
+        console.log(isFavorite);
+        const bookmarkButton = bookDiv.querySelector(".bookmark");
+        bookmarkButton.addEventListener('click', async (event) => {
+            event.stopPropagation();
+            if (!model.app.isLoggedIn) {
+                alert("Please log in to manage favorites.");
+                return;
+            }
+
+            if (isFavorite) {
+                await removeFromFavorite(book);
+                model.app.favorite = model.app.favorite.filter(isbn => isbn !== book.isbn);
+                bookmarkButton.src = "/images/bookmark-fill.svg";
+            } else {
+                await addToFavorite(book);
+                model.app.favorite.push(book.isbn);
+                bookmarkButton.src = "/images/bookmark-check-fill.svg";
+            }
+        });
     });
 }
+
 export function renderLoanedBooks(loanedBooks) {
     const contentDiv = document.getElementById('bookLoanedByUser');
     if (!loanedBooks || loanedBooks.length === 0) {
@@ -87,7 +101,7 @@ export function renderLoanedBooks(loanedBooks) {
         });
         bookDiv.innerHTML = `
             <img src="${book.coverImageUrl || 'images/book.svg'}" alt="${book.title}">
-            <h3>${book.title}</h3>
+            <h4>${book.title}</h4>
             <p class="loan-date">Loaned on: ${loanDate}</p>
             <div class="button-container">
                 <button type="button" class="returnButton" data-isbn="${book.isbn}">Return Book</button>

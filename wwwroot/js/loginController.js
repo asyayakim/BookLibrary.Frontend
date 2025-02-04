@@ -27,7 +27,7 @@ export async function authenticateUser(username, password) {
             console.log(model.app.loggedInUser);
 
             // model.app.token = data.Token;
-              model.app.currentPage = user.role === "admin" ? "adminDashboard" : "homeLibrary";
+              model.app.currentPage = user.role === "admin" ? "adminDashboard" : "userInfo";
             updateView();
         } else {
             document.getElementById("error").innerText = "Invalid credentials!";

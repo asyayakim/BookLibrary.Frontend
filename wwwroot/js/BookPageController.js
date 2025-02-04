@@ -54,11 +54,12 @@ export async function addToFavorite(book) {
         });
         if (!response.ok) {
             const errorMessage = await response.text();
-            console.error("Error during posting book:", errorMessage);
-            throw new Error(`Posting failed: ${response.status}`);
+            if (response.status === 409) {
+                alert("This book is already in your favorites.");
+                return;
+            }
+            throw new Error(`Posting failed: ${response.status} - ${errorMessage}`);
         }
-        const data = await response.json();
-        console.log(data);
         alert("Book successfully added to the list!");
     } catch (err) {
         console.error("Error during push:", err);

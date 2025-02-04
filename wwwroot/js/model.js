@@ -9,6 +9,7 @@ export const model = {
         filteredBooks: null,
         token: null,
         searchMode: false,
+        favorite: null,
     },
     
 };

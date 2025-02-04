@@ -90,8 +90,8 @@
 
 .loaned-books-grid, .favorite-books-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); 
+    gap: 1rem;
     padding: 0 1rem;
 }
 
@@ -105,15 +105,14 @@
     background-color: #f9f9f9;
     text-align: center;
     position: relative;
-    height: 100%;
 }
 
 .loaned-book img, .favorite-book img {
-    width: 150px;
-    height: 200px; 
+    
+    height: 160px; 
     object-fit: cover;
     border-radius: 5px;
-    margin-bottom: 1rem;
+  
 }
 
 .loaned-book h3, .favorite-book h3 {
