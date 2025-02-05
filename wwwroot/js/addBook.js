@@ -1,5 +1,6 @@
 const API_URL = 'http://localhost:5294/api/Book';
 const contentDiv = document.getElementById('content');
+
 export function renderAddBookPage() {
     contentDiv.innerHTML = `
         <h2>Add a New Book</h2>
@@ -22,7 +23,7 @@ export function renderAddBookPage() {
             <button type="submit">Add Book</button>
         </form>
     `;
-
+const addBookForm = document.getElementById('addBookForm');
     addBookForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
@@ -43,7 +44,7 @@ export function renderAddBookPage() {
                 if (response.ok) {
                     alert('Book added successfully!');
                     document.getElementById('addBookForm').reset();
-                    await fetchBooks(); 
+                    await fetchBooks();
                 } else {
                     console.error('Failed to add book');
                     alert('Failed to add book. Please try again.');
@@ -54,6 +55,6 @@ export function renderAddBookPage() {
         } else {
             alert('Please fill out all fields.');
         }
+        
     });
 }
- //addBookPageBtn.addEventListener('click', renderAddBookPage);

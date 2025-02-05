@@ -69,11 +69,10 @@ body {
     padding: 20px;
 }
 .books-list-Admin {
-
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive grid */
-    gap: 3rem;
-    padding: 3rem;
+    gap: 0.8rem;
+    padding: 0.8rem;
 }
 
 
@@ -82,13 +81,14 @@ body {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    justify-content: space-between;
 }
 
 .book-admin-page img {
     border-radius: 5px;
-    height: auto;
+    height: 80px;
     object-fit: cover;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .book-info {
@@ -124,7 +124,7 @@ body {
 
 
 .book-info .deleteButton {
-    background-color: #e75c5c;
+    background-color: #b5b5b5;
     color: white;
     border: none;
     padding: 8px 15px;
@@ -135,11 +135,12 @@ body {
 }
 
 .book-info .deleteButton:hover {
-    background-color: #c34747;
+    background-color: #262626;
+    color: #ffffff;
 }
 
 .book-info .editButton {
-    background-color: #42b647;
+    background-color: #b5b5b5;
     color: white;
     border: none;
     padding: 8px 15px;
@@ -150,7 +151,7 @@ body {
 }
 
 .book-info .editButton:hover {
-    background-color: #267b20;
+    background-color: #262626;
 }
 
 

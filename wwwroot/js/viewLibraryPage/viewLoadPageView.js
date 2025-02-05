@@ -58,21 +58,10 @@ export function renderBooks(books) {
                 <div class="book-info">
                     <h3 title="${book.title}">${truncatedTitle}</h3>
                     <p><strong>Author:</strong> ${truncatedAuthor}</p>
-                   ${
-                model.app.userRole === 'admin'
-                    ? `<button class="deleteButton" data-id="${book.id}" data-isbn="${book.id}">Delete</button>`
-                    : ''
-            }
+    
                 </div>
             `;
             createBookmarks(isFavorite, book, bookDiv);
-            const DeleteButtons = document.querySelectorAll('.deleteButton');
-            DeleteButtons.forEach((button) => {
-                button.addEventListener('click', async () => {
-                    const id = button.getAttribute('data-isbn');
-                    await deleteBook(id);
-                });
-            });
 
             bookDiv.addEventListener('click', () => selectBookPage(book.id));
 

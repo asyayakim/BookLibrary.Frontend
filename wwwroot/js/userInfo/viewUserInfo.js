@@ -7,8 +7,8 @@ import {selectBookPage} from "../viewLibraryPage.js";
 export async function viewUserInfo() {
     const contentDiv = document.getElementById('content');
     contentDiv.innerHTML = `
-        <form id="changePersonalInformation">
        <h2>Change user info</h2>
+        <form id="changePersonalInformation">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" required>
             <label for="password">Change Password:</label>

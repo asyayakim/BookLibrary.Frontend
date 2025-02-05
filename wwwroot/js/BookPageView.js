@@ -1,6 +1,4 @@
 import {model} from "./model.js";
-import Config from "./utils/config.js";
-import {updateView} from "./main.js";
 import {postSelectedBookToDb} from "./BookPageController.js";
 const API_URL = 'http://localhost:5294/api/Book';
 
@@ -9,7 +7,7 @@ export async function selectBook()
 {
     const bookId = model.app.currentBookId;
     if (!bookId) {
-        console.error("❌ Error: No book ID found in model.app.currentBookId");
+        console.error("Error: No book ID found in model.app.currentBookId");
         return;
     }
     try {
@@ -20,12 +18,68 @@ export async function selectBook()
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         const book = await response.json(); 
-        renderBook(book);
+        model.app.userRole === "admin" ? renderBookAdmin(book) : renderBook(book);
+        console.log(model.app.userRole)
+        
     }catch (error) {
         console.error('Error fetching book:', error);
     }
 }
-function renderBook(book) {
+function renderBookAdmin(book){
+    contentDiv.innerHTML = '';
+    contentDiv.className = 'selected-book-layout-admin';
+
+    const bookDiv = document.createElement('div');
+    bookDiv.className = 'selected-book-layout-admin';
+    bookDiv.innerHTML = `
+           <div class="book-details">
+            <h1>Edit Book</h1>
+            <form id="editBookForm">
+                <label>Title:</label>
+                <input type="text" id="title" value="${book.title}" required>
+
+                <label>Author:</label>
+                <input type="text" id="author" value="${book.author}" required>
+
+                <label>Genre:</label>
+                <input type="text" id="genre" value="${book.genre}" required>
+
+                <label>Year:</label>
+                <input type="number" id="year" value="${book.year}" required>
+
+                <label>ISBN:</label>
+                <input type="text" id="isbn" value="${book.isbn}" required>
+
+                <label>Cover Image URL:</label>
+                <input type="url" id="coverImageUrl" value="${book.coverImageUrl}">
+
+                <button type="submit" class="save-btn">Save changes</button>
+            </form>
+        </div>
+
+        <div class="book-cover">
+            <img src="${book.coverImageUrl}" alt="${book.title}">
+        </div>
+    `;
+    contentDiv.appendChild(bookDiv);
+    const form = document.getElementById('editBookForm');
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const updatedBook = {
+            id: book.id,
+            title: document.getElementById('title').value,
+            author: document.getElementById('author').value,
+            genre: document.getElementById('genre').value,
+            year: document.getElementById('year').value,
+            isbn: document.getElementById('isbn').value,
+            coverImageUrl: document.getElementById('coverImageUrl').value,
+        };
+
+        await updateBookOnServer(updatedBook);
+    });
+}
+export function renderBook(book) {
     contentDiv.innerHTML = '';
     contentDiv.className = 'selected-book-layout';
 

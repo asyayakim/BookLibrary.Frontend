@@ -1,7 +1,6 @@
 import {model} from "./model.js";
 import {updateView} from "./main.js";
-import {addToFavorite} from "./BookPageController.js";
-import {returnBook} from "./userInfo/viewUserInfoController.js";
+
 import {renderAdminBooks} from "./admin.js/adminDashboard.js";
 import {fetchSearchedBooks} from "./searchBooks/searchingBookController.js";
 import {renderBooksForSearch} from "./searchBooks/searchingBookView.js";
@@ -41,17 +40,3 @@ export function selectBookPage(bookId) {
     updateView();
 }
 
-async function deleteBook(id) {
-    try {
-        const response = await fetch(`${API_URL}/${id}`, {method: 'DELETE'});
-        if (response.ok) {
-            fetchBooks();
-        } else {
-            console.error('Failed to delete book');
-        }
-    } catch (error) {
-        console.error('Error deleting book:', error);
-    }
-}
-
-window.deleteBook = deleteBook;

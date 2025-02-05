@@ -41,14 +41,6 @@ function renderPopularBooks(books) {
                 <h3 title="${book.title}">${truncatedTitle}</h3>
             </div>
         `;
-        // bookDiv.addEventListener('click', () => {
-        //     if (!book.id) {
-        //         console.error("Error: Book has no ID", book);
-        //         return;
-        //     }
-        //     selectBookPage(book.id);
-        // });
-
         container.appendChild(bookDiv);
     });
 }

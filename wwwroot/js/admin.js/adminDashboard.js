@@ -1,17 +1,20 @@
-import {fetchBooks} from "../viewLibraryPage.js";
+import {fetchBooks, selectBookPage} from "../viewLibraryPage.js";
 import {model} from "../model.js";
 import {addToFavorite} from "../BookPageController.js";
 import {updateView} from "../main.js";
 
 
+
+
 export function renderAdminDashboard() {
     document.getElementById('content').innerHTML = `
     <div class="layout-admin-page">
-    <div class="background-for-navigation">
+    <div class="background-for-navigation-admin">
        <h2>Welcome, Admin!</h2>
         <div class="container">
             <button class="viewLoanedBooksUsers">View all loaned books and users</button>
             <button class="addBookPage">Add book</button>
+            <button class="viewLibraryPage">View Library</button>
         </div>
         </div>
         <div id="viewBooks" class="viewBooks"></div>
@@ -23,20 +26,23 @@ export function renderAdminDashboard() {
         model.app.currentPage = 'addBook';
         updateView();
     });
-    
+    const viewLibraryButton = document.querySelector('.viewLibraryPage');
+    viewLibraryButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        model.app.currentPage = 'adminDashboard';
+        updateView();
+    });
     const viewLoanedBooksButton = document.querySelector('.viewLoanedBooksUsers');
     viewLoanedBooksButton.addEventListener('click', () => {
-        alert('Displaying all loaned books and users!');
         model.app.currentPage = 'adminViewUsers&Books';
         updateView();
     });
     fetchBooks();
 }
-
+let currentBatch = 0;
+let batchSize = 9;
 export function renderAdminBooks(books) {
     const contentDiv = document.getElementById('viewBooks');
-
-
     contentDiv.className = 'books-list-Admin'
     books.forEach(book => {
         const bookDiv = document.createElement('div');
@@ -53,5 +59,19 @@ export function renderAdminBooks(books) {
             </div>
     `;
         contentDiv.appendChild(bookDiv);
+        const DeleteButtons = document.querySelectorAll('.deleteButton');
+        DeleteButtons.forEach((button) => {
+            button.addEventListener('click', async () => {
+                const id = button.getAttribute('data-id');
+                await deleteBook(id);
+            });
+        });
+        const editButton = document.querySelectorAll('.editButton');
+        editButton.forEach((button) => {
+            button.addEventListener('click', async () => {
+                const id = button.getAttribute('data-id');
+                await selectBookPage(id);
+            });
+        }); 
     });
 }

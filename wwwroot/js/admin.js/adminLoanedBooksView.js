@@ -5,7 +5,7 @@ import {fetchAdminViewUsers} from "./adminLoanedBooksController.js";
 export async function renderAdminViewUsers() {
     document.getElementById('content').innerHTML = `
     <div class="layout-users">
-    <div class="background-for-navigation">
+    <div class="background-for-navigation-admin">
        <h2>Manage users data</h2>
         <div class="container">
             <button class="sort">Sort users by</button>

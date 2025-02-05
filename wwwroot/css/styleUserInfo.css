@@ -1,9 +1,102 @@
 #changePersonalInformation {
-    background-color: #ffffff;
+    max-width: 400px;
+    margin: 0 auto;
     padding: 2rem;
-    border-radius: 8px;
-    max-width: 800px;
-    margin: 0 auto 2rem auto;
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+/* Form heading */
+#changePersonalInformation h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.75rem;
+    color: #6c5ce7;
+    text-align: center;
+}
+
+/* Labels */
+#changePersonalInformation label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+/* Input fields */
+#changePersonalInformation input {
+    width: 88%;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #333;
+    transition: border-color 0.3s ease;
+}
+
+#changePersonalInformation input:focus {
+    border-color: #6c5ce7;
+    outline: none;
+    box-shadow: 0 0 5px rgba(108, 92, 231, 0.3);
+}
+
+/* Buttons container */
+.registerButtons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* Confirm button */
+#changePersonalInformation button[type="submit"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: #6c5ce7;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#changePersonalInformation button[type="submit"]:hover {
+    background-color: #5a4ad1;
+    transform: translateY(-2px);
+}
+
+/* Book info layout */
+.book-info-layout {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    padding: 1rem;
+    background-color: #f4f4f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#bookLoanedByUser,
+#favoriteBooks {
+    flex: 1;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .book-info-layout {
+        flex-direction: column;
+    }
+
+    #changePersonalInformation {
+        padding: 1.5rem;
+    }
 }
 .book-info-layout {
     display: flex;
@@ -20,57 +113,57 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-#changePersonalInformation h2 {
-    font-size: 24px;
-    margin-bottom: 1.5rem;
-    color: #333;
-    border-bottom: 2px solid #00b8a9;
-    padding-bottom: 0.5rem;
-}
+/*#changePersonalInformation h2 {*/
+/*    font-size: 24px;*/
+/*    margin-bottom: 1.5rem;*/
+/*    color: #333;*/
+/*    border-bottom: 2px solid #00b8a9;*/
+/*    padding-bottom: 0.5rem;*/
+/*}*/
 
-#changePersonalInformation label {
-    display: block;
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 0.5rem;
-}
+/*#changePersonalInformation label {*/
+/*    display: block;*/
+/*    font-size: 14px;*/
+/*    color: #555;*/
+/*    margin-bottom: 0.5rem;*/
+/*}*/
 
-#changePersonalInformation input {
-    width: 50%;
-    padding: 10px;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 14px;
-    box-sizing: border-box;
-}
+/*#changePersonalInformation input {*/
+/*    width: 50%;*/
+/*    padding: 10px;*/
+/*    margin-bottom: 1rem;*/
+/*    border: 1px solid #ccc;*/
+/*    border-radius: 5px;*/
+/*    font-size: 14px;*/
+/*    box-sizing: border-box;*/
+/*}*/
 
-#changePersonalInformation input:focus {
-    outline: none;
-    border-color: #00b8a9;
-    background-color: #f0f8ff;
-}
+/*#changePersonalInformation input:focus {*/
+/*    outline: none;*/
+/*    border-color: #00b8a9;*/
+/*    background-color: #f0f8ff;*/
+/*}*/
 
-.registerButtons {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 1rem;
-}
+/*.registerButtons {*/
+/*    display: flex;*/
+/*    justify-content: flex-end;*/
+/*    margin-top: 1rem;*/
+/*}*/
 
-.registerButtons button {
-    padding: 10px 20px;
-    background-color: #00b8a9;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-}
+/*.registerButtons button {*/
+/*    padding: 10px 20px;*/
+/*    background-color: #00b8a9;*/
+/*    color: #fff;*/
+/*    border: none;*/
+/*    border-radius: 5px;*/
+/*    cursor: pointer;*/
+/*    font-size: 14px;*/
+/*    transition: background-color 0.3s ease;*/
+/*}*/
 
-.registerButtons button:hover {
-    background-color: #009688;
-}
+/*.registerButtons button:hover {*/
+/*    background-color: #009688;*/
+/*}*/
 
 #bookLoanedByUser,#favoriteBooks {
     background-color: #ffffff;
