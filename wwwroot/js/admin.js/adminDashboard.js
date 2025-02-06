@@ -3,9 +3,6 @@ import {model} from "../model.js";
 import {addToFavorite} from "../BookPageController.js";
 import {updateView} from "../main.js";
 
-
-
-
 export function renderAdminDashboard() {
     document.getElementById('content').innerHTML = `
     <div class="layout-admin-page">
@@ -14,10 +11,14 @@ export function renderAdminDashboard() {
         <div class="container">
             <button class="viewLoanedBooksUsers">View all loaned books and users</button>
             <button class="addBookPage">Add book</button>
-            <button class="viewLibraryPage">View Library</button>
+            <button class="viewUsersData">View users data</button>
         </div>
         </div>
         <div id="viewBooks" class="viewBooks"></div>
+         <div id="mainContainer" class="main-container">
+            <button id="loadMoreBooks" class="load-more" style="display:none;">Load More Books</button>
+            </div>
+        </div>
         </div>
         `;
     const addBookButton = document.querySelector('.addBookPage');
@@ -26,10 +27,10 @@ export function renderAdminDashboard() {
         model.app.currentPage = 'addBook';
         updateView();
     });
-    const viewLibraryButton = document.querySelector('.viewLibraryPage');
+    const viewLibraryButton = document.querySelector('.viewUsersData');
     viewLibraryButton.addEventListener('click', (event) => {
         event.stopPropagation();
-        model.app.currentPage = 'adminDashboard';
+        model.app.currentPage = 'usersData';
         updateView();
     });
     const viewLoanedBooksButton = document.querySelector('.viewLoanedBooksUsers');
@@ -44,7 +45,8 @@ let batchSize = 9;
 export function renderAdminBooks(books) {
     const contentDiv = document.getElementById('viewBooks');
     contentDiv.className = 'books-list-Admin'
-    books.forEach(book => {
+    const booksToRender = books.slice(currentBatch, currentBatch + batchSize);
+    booksToRender.forEach(book => {
         const bookDiv = document.createElement('div');
         bookDiv.className = 'book-admin-page';
         let truncatedTitle = book.title.length > 20 ? book.title.substring(0, 20) + '...' : book.title;
@@ -59,19 +61,47 @@ export function renderAdminBooks(books) {
             </div>
     `;
         contentDiv.appendChild(bookDiv);
-        const DeleteButtons = document.querySelectorAll('.deleteButton');
-        DeleteButtons.forEach((button) => {
-            button.addEventListener('click', async () => {
-                const id = button.getAttribute('data-id');
-                await deleteBook(id);
-            });
-        });
+    });
         const editButton = document.querySelectorAll('.editButton');
         editButton.forEach((button) => {
             button.addEventListener('click', async () => {
                 const id = button.getAttribute('data-id');
                 await selectBookPage(id);
             });
-        }); 
-    });
+        });
+    currentBatch += batchSize;
+    toggleLoadMoreButton(books);
 }
+
+function toggleLoadMoreButton(books) {
+    const loadMoreButton = document.getElementById("loadMoreBooks");
+    if (loadMoreButton) {
+        if (currentBatch >= books.length) {
+            loadMoreButton.style.display = 'none';
+        } else {
+            loadMoreButton.style.display = 'block';
+        }
+    }
+}
+export function manageLoadMoreButton(books) {
+    const mainContainer = document.getElementById('mainContainer');
+    let loadMoreButton = document.getElementById('loadMoreBooks');
+
+    if (!loadMoreButton) {
+        loadMoreButton = document.createElement('button');
+        loadMoreButton.id = 'loadMoreBooks';
+        loadMoreButton.className = 'load-more';
+        loadMoreButton.textContent = 'Load More Books';
+        mainContainer.appendChild(loadMoreButton);
+    }
+
+    loadMoreButton.onclick = () => {
+        renderAdminBooks(books); 
+    };
+
+    toggleLoadMoreButton(books);
+
+}
+
+
+

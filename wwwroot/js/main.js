@@ -29,7 +29,9 @@ export function updateView() {
     } else if (page === "searchBook") {
         showSearchingBooks();
     } else if (page === "adminViewUsers&Books") {
-        renderAdminViewUsers();
+        renderAdminViewUsers();  
+    } else if (page === "usersData") {
+        renderAdminViewUsersData();
     } else if (page === "userInfo") {
         viewUserInfo();
     } else {

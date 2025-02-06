@@ -1,7 +1,7 @@
 import {model} from "./model.js";
 import {updateView} from "./main.js";
 
-import {renderAdminBooks} from "./admin.js/adminDashboard.js";
+import {manageLoadMoreButton, renderAdminBooks} from "./admin.js/adminDashboard.js";
 import {fetchSearchedBooks} from "./searchBooks/searchingBookController.js";
 import {renderBooksForSearch} from "./searchBooks/searchingBookView.js";
 import {renderBooks} from "./viewLibraryPage/viewLoadPageView.js";
@@ -18,6 +18,7 @@ export async function fetchBooks() {
         const books = await response.json();
         if (model.app.userRole === 'admin') {
             renderAdminBooks(books);
+            manageLoadMoreButton(books);
         }
         else if (model.app.currentPage === 'searchBook') {
             await renderBooksForSearch(books);
