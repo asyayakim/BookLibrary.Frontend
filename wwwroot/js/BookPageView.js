@@ -1,5 +1,5 @@
 import {model} from "./model.js";
-import {postSelectedBookToDb} from "./BookPageController.js";
+import {postSelectedBookToDb, updateBookOnServer} from "./BookPageController.js";
 const API_URL = 'http://localhost:5294/api/Book';
 
 const contentDiv = document.getElementById('content');
@@ -19,7 +19,6 @@ export async function selectBook()
         }
         const book = await response.json(); 
         model.app.userRole === "admin" ? renderBookAdmin(book) : renderBook(book);
-        console.log(model.app.userRole)
         
     }catch (error) {
         console.error('Error fetching book:', error);
@@ -104,7 +103,6 @@ export function renderBook(book) {
     loanButton.addEventListener('click', () => loanBook(book)); 
 }
 function loanBook(book){
-    console.log(model.app.loggedInUser);
     if (model.app.loggedInUser == null)
     {
         alert("Login for loan the book");

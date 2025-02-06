@@ -26,7 +26,6 @@ export async function postSelectedBookToDb(loanedBook) {
             throw new Error(`Posting failed: ${response.status}`);
         }
         const data = await response.json();
-        console.log(data);
         alert("Book successfully loaned!");
     } catch (err) {
         console.error("Error during push:", err);
@@ -64,5 +63,25 @@ export async function addToFavorite(book) {
     } catch (err) {
         console.error("Error during push:", err);
         alert("Push failed: " + err.message);
+    }
+}
+export async function updateBookOnServer(book) {
+    try {
+        const response = await fetch(`${Config.apiBaseUrl}/book/${book.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(book),
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Server response:', errorText);
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        alert('Book updated successfully!');
+    } catch (error) {
+        console.error('Detailed error:', error);
+        alert(`Failed to update book: ${error.message}`);
     }
 }
