@@ -9,6 +9,7 @@ import {renderAdminDashboard} from "./admin.js/adminDashboard.js";
 import {renderAdminViewUsers} from "./admin.js/adminLoanedBooksView.js";
 import {showSearchingBooks} from "./searchBooks/searchingBookView.js";
 import {drawHomePage} from "./viewLibraryPage/viewLoadPageView.js";
+import {renderAdminViewUsersData} from "./admin.js/adminUserDataView.js";
 
 export function updateView() {
     updateHeader();

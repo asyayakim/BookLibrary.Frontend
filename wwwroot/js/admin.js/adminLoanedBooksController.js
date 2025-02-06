@@ -3,9 +3,22 @@ import Config from "../utils/config.js";
 import {renderDbData} from "./adminLoanedBooksView.js";
 import {fetchBooks} from "../viewLibraryPage.js";
 import {updateView} from "../main.js";
+import {renderUsersForSearch} from "./adminUserDataView.js";
 
 
+export async function fetchUserData(){
+    try {
+        const response = await fetch(`http://localhost:5294/api/userData`)
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        renderUsersForSearch(data);
 
+    } catch (error) {
+        console.error('Error fetching books:', error);
+    } 
+}
 
 export async function fetchAdminViewUsers() {
     try {
