@@ -51,16 +51,24 @@ function renderBookAdmin(book){
 
                 <label>Cover Image URL:</label>
                 <input type="url" id="coverImageUrl" value="${book.coverImageUrl}">
-
                 <button type="submit" class="save-btn">Save changes</button>
-            </form>
-        </div>
-
-        <div class="book-cover">
+                <div class="book-cover">
             <img src="${book.coverImageUrl}" alt="${book.title}">
         </div>
+            </form>
+                <button class="deleteButton" data-id="${book.id}">Delete</button>
+        </div>
+
+        
     `;
     contentDiv.appendChild(bookDiv);
+    const DeleteButtons = document.querySelectorAll('.deleteButton');
+    DeleteButtons.forEach((button) => {
+        button.addEventListener('click', async () => {
+            const id = button.getAttribute('data-id');
+            await deleteBook(id);
+        });
+    });
     const form = document.getElementById('editBookForm');
     form.addEventListener('submit', async (event) => {
         event.preventDefault();

@@ -54,7 +54,7 @@ export function renderAdminBooks(books) {
             <div class="book-info">
                 <h3 title="${book.title}">${truncatedTitle}</h3>
                 <p><strong>Author:</strong> ${truncatedAuthor}</p>
-                <button class="deleteButton" data-id="${book.id}">Delete</button>
+                
                 <button class="editButton" data-id="${book.id}">Edit</button>
             </div>
     `;

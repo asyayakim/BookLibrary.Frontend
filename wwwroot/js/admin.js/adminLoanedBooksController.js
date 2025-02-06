@@ -2,6 +2,7 @@ import {model} from "../model.js";
 import Config from "../utils/config.js";
 import {renderDbData} from "./adminLoanedBooksView.js";
 import {fetchBooks} from "../viewLibraryPage.js";
+import {updateView} from "../main.js";
 
 
 
@@ -22,10 +23,11 @@ export async function fetchAdminViewUsers() {
 
 export async function deleteBook(id) {
     try {
-        const response = await fetch(`${API_URL}/${id}`, {method: 'DELETE'});
+        const response = await fetch(`${Config.apiBaseUrl}/book/${id}`, {method: 'DELETE'});
         console.log(id);
         if (response.ok) {
-            await fetchBooks();
+            model.app.currentPage = 'homeLibrary';
+            await updateView();
         } else {
             console.error('Failed to delete book');
         }
