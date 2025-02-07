@@ -29,16 +29,20 @@ export async function fetchUserProfile(userId) {
         ]);
         if (!favoriteResponse.ok) {
             if (favoriteResponse.status === 404) {
-                console.warn('No favorite books found for this user.');
+                console.warn('No favorite books found.');
             } else {
                 throw new Error(`Favorite books error: ${favoriteResponse.status}`);
             }
         }
         if (!loanedResponse.ok) {
-            throw new Error(`Loaned books error: ${loanedResponse.status}`);
+            alert(`Loaned books error: ${loanedResponse.status}`);
         }
-        const favorite = await favoriteResponse.json();
-        const loanedBooks = await loanedResponse.json();
+        const favorite = favoriteResponse.ok ? await favoriteResponse.json() : [];
+        const loanedBooks = loanedResponse.ok ? await loanedResponse.json() : [];
+        if (favorite.length === 0 && loanedBooks.length === 0) {
+            alert('No favorite or loaned books found for this user.');
+            return;
+        }
         renderUsers(favorite, loanedBooks);
     } catch (error) {
         console.error('Error fetching user profile:', error);

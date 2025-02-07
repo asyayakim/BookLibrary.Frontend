@@ -5,6 +5,7 @@
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center; /* Centers inline elements inside */
 }
 
 .admin-header {
@@ -34,16 +35,22 @@
 }
 
 .admin-table {
-    width: 100%;
+    width: 100%; 
+    max-width: 1000px;
+    margin: 0 auto;
+    display: table;
     border-collapse: collapse;
-    margin-bottom: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .admin-table th,
 .admin-table td {
-    padding: 12px;
-    text-align: left;
+    padding: 15px;
+    text-align: center;
     border-bottom: 1px solid #ddd;
+    word-wrap: break-word;
 }
 
 .admin-table th {
@@ -51,54 +58,48 @@
     color: #fff;
     font-weight: bold;
 }
+.admin-table th:nth-child(1), .admin-table td:nth-child(1) { width: 10%; }  /* ID */
+.admin-table th:nth-child(2), .admin-table td:nth-child(2) { width: 50%; }  /* Username */
+.admin-table th:nth-child(3), .admin-table td:nth-child(3) { width: 40%; }  /* Role */
+.admin-table th:nth-child(4), .admin-table td:nth-child(4) { width: 20%; }  /* Actions */
 
 .admin-table tr:hover {
     background-color: #f1f1f1;
 }
 
 .admin-table button {
+    background-color: #e74c3c;
     color: #fff;
     border: none;
-    padding: 5px 10px;
+    padding: 8px 12px;
     border-radius: 3px;
     cursor: pointer;
     font-size: 12px;
 }
 
 .admin-table button:hover {
-    
-
+    background-color: #c0392b;
 }
 
-
-.admin-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-}
-
-.admin-form label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: bold;
-    color: #2c3e50;
-}
-
-
-
+/* Make it responsive */
 @media (max-width: 768px) {
     .admin-container {
         padding: 10px;
     }
 
-    .card-container {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    .admin-table {
+        font-size: 12px;
+        width: 90%;
     }
 
     .admin-table th,
     .admin-table td {
-        padding: 8px;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .admin-table th:nth-child(2),
+    .admin-table td:nth-child(2) {
+        width: 40%;
     }
 }

@@ -1,17 +1,19 @@
-
 import {fetchUserData, fetchUserProfile} from "./adminLoanedBooksController.js";
+import {model} from "../model.js";
+import {updateView} from "../main.js";
 
-export function renderAdminViewUsersData (){
+export function renderAdminViewUsersData() {
 
-        document.getElementById('content').innerHTML = `
+    document.getElementById('content').innerHTML = `
         <div id="viewSearch" class="viewBooks"></div>
         <div id="mainContainer" class="main-container">
             <button id="loadMoreBooks" class="load-more" style="display:none;">Load More Books</button>
             </div>
         </div>
         `;
-        fetchUserData();
+    fetchUserData();
 }
+
 export function renderUsersForSearch(users) {
     console.log(users);
     const contentDiv = document.getElementById('viewSearch');
@@ -56,7 +58,7 @@ function attachEventListeners() {
 
             if (!event.target.classList.contains('delete-button')) {
                 const userId = row.getAttribute('data-id');
-                
+
                 fetchUserProfile(userId);
             }
         });
@@ -82,9 +84,19 @@ export function renderUsers(favorite, loanedBooks) {
         userInfo.innerHTML = `
             <h2>User ID: ${favorite[0]?.userId || loanedBooks[0]?.userId}</h2>
             <p>Viewing favorite and loaned books for this user.</p>
+    <button class="button-container">Return</button>
         `;
         contentDiv.appendChild(userInfo);
     }
+    const returnButton = document.querySelector('.button-container');
+
+    returnButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        model.app.currentPage = 'usersData';
+        updateView();
+    });
+    
+
     if (favorite.length > 0) {
         const favoriteSection = document.createElement('div');
         favoriteSection.innerHTML = '<h3>Favorite Books</h3>';
@@ -102,6 +114,7 @@ export function renderUsers(favorite, loanedBooks) {
         contentDiv.appendChild(loanedTable);
     }
 }
+
 function createBookTable(books) {
     const table = document.createElement('table');
     table.className = 'user-table';

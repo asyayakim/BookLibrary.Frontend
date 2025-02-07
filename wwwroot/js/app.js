@@ -85,8 +85,14 @@ export function updateHeader() {
     if (model.app.isLoggedIn) {
         const userLogin = document.querySelector("#userLogin");
         userLogin.addEventListener("click", function () {
-            model.app.currentPage = "userInfo";
-            updateView();
+            if (model.app.userRole === 'admin') {
+                model.app.currentPage = "adminInfo";
+                updateView();
+            }
+            else {
+                model.app.currentPage = "userInfo";
+                updateView();
+            }
         });
     }
 }

@@ -10,6 +10,7 @@ import {renderAdminViewUsers} from "./admin.js/adminLoanedBooksView.js";
 import {showSearchingBooks} from "./searchBooks/searchingBookView.js";
 import {drawHomePage} from "./viewLibraryPage/viewLoadPageView.js";
 import {renderAdminViewUsersData} from "./admin.js/adminUserDataView.js";
+import {viewAdminInfo} from "./admin.js/viewAdminInfo.js";
 
 export function updateView() {
     updateHeader();
@@ -35,6 +36,8 @@ export function updateView() {
         renderAdminViewUsersData();
     } else if (page === "userInfo") {
         viewUserInfo();
+    } else if (page === "adminInfo") {
+        viewAdminInfo();
     } else {
         document.getElementById("content").innerHTML = `<h1>Page not found</h1>`;
     }
