@@ -113,57 +113,6 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-/*#changePersonalInformation h2 {*/
-/*    font-size: 24px;*/
-/*    margin-bottom: 1.5rem;*/
-/*    color: #333;*/
-/*    border-bottom: 2px solid #00b8a9;*/
-/*    padding-bottom: 0.5rem;*/
-/*}*/
-
-/*#changePersonalInformation label {*/
-/*    display: block;*/
-/*    font-size: 14px;*/
-/*    color: #555;*/
-/*    margin-bottom: 0.5rem;*/
-/*}*/
-
-/*#changePersonalInformation input {*/
-/*    width: 50%;*/
-/*    padding: 10px;*/
-/*    margin-bottom: 1rem;*/
-/*    border: 1px solid #ccc;*/
-/*    border-radius: 5px;*/
-/*    font-size: 14px;*/
-/*    box-sizing: border-box;*/
-/*}*/
-
-/*#changePersonalInformation input:focus {*/
-/*    outline: none;*/
-/*    border-color: #00b8a9;*/
-/*    background-color: #f0f8ff;*/
-/*}*/
-
-/*.registerButtons {*/
-/*    display: flex;*/
-/*    justify-content: flex-end;*/
-/*    margin-top: 1rem;*/
-/*}*/
-
-/*.registerButtons button {*/
-/*    padding: 10px 20px;*/
-/*    background-color: #00b8a9;*/
-/*    color: #fff;*/
-/*    border: none;*/
-/*    border-radius: 5px;*/
-/*    cursor: pointer;*/
-/*    font-size: 14px;*/
-/*    transition: background-color 0.3s ease;*/
-/*}*/
-
-/*.registerButtons button:hover {*/
-/*    background-color: #009688;*/
-/*}*/
 
 #bookLoanedByUser,#favoriteBooks {
     background-color: #ffffff;

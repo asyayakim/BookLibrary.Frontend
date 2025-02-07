@@ -2,6 +2,8 @@ import {model} from "../model.js";
 import Config from "../utils/config.js";
 import {fetchAdminViewUsers} from "./adminLoanedBooksController.js";
 
+
+
 export async function renderAdminViewUsers() {
     document.getElementById('content').innerHTML = `
     <div class="layout-users">
