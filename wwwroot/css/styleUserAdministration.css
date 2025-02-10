@@ -68,7 +68,7 @@
 }
 
 .admin-table button {
-    background-color: #e74c3c;
+    background-color: rgba(0, 0, 0, 0);
     color: #fff;
     border: none;
     padding: 8px 12px;
@@ -78,10 +78,9 @@
 }
 
 .admin-table button:hover {
-    background-color: #c0392b;
+    background-color: #000000;
 }
 
-/* Make it responsive */
 @media (max-width: 768px) {
     .admin-container {
         padding: 10px;

@@ -1,10 +1,12 @@
 import {model} from "./model.js";
-import {postSelectedBookToDb, updateBookOnServer} from "./BookPageController.js";
+import {addToFavorite, postSelectedBookToDb, updateBookOnServer} from "./BookPageController.js";
+import {selectBookPage} from "./viewLibraryPage.js";
+
 const API_URL = 'http://localhost:5294/api/Book';
 
 const contentDiv = document.getElementById('content');
-export async function selectBook()
-{
+
+export async function selectBook() {
     const bookId = model.app.currentBookId;
     if (!bookId) {
         console.error("Error: No book ID found in model.app.currentBookId");
@@ -17,49 +19,48 @@ export async function selectBook()
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const book = await response.json(); 
+        const book = await response.json();
         model.app.userRole === "admin" ? renderBookAdmin(book) : renderBook(book);
-        
-    }catch (error) {
+
+    } catch (error) {
         console.error('Error fetching book:', error);
     }
 }
-function renderBookAdmin(book){
+
+function renderBookAdmin(book) {
     contentDiv.innerHTML = '';
     contentDiv.className = 'selected-book-layout-admin';
 
     const bookDiv = document.createElement('div');
-    bookDiv.className = 'selected-book-layout-admin';
+    bookDiv.className = 'selected-book-admin';
     bookDiv.innerHTML = `
-           <div class="book-details">
+          <div class="book-details">
             <h1>Edit Book</h1>
+            <div class="book-cover-container">
+                <img class="book-cover" src="${book.coverImageUrl}" alt="${book.title}">
+                ${!model.app.userRole || model.app.userRole === 'User' ? `<img class="bookmark" src="/images/bookmark-fill.svg" alt="bookmark">` : ''}
+            </div>
             <form id="editBookForm">
                 <label>Title:</label>
                 <input type="text" id="title" value="${book.title}" required>
-<div class="book-cover">
-            <img src="${book.coverImageUrl}" alt="${book.title}">
-        </div>
                 <label>Author:</label>
                 <input type="text" id="author" value="${book.author}" required>
-
                 <label>Genre:</label>
                 <input type="text" id="genre" value="${book.genre}" required>
-
                 <label>Year:</label>
                 <input type="number" id="year" value="${book.year}" required>
-
                 <label>ISBN:</label>
                 <input type="text" id="isbn" value="${book.isbn}" required>
-
                 <label>Cover Image URL:</label>
                 <input type="url" id="coverImageUrl" value="${book.coverImageUrl}">
+
                 <button type="submit" class="save-btn">Save changes</button>
             </form>
-                <button class="deleteButton" data-id="${book.id}">Delete</button>
+            <button class="deleteButton" data-id="${book.id}">Delete</button>
         </div>
-
-        
     `;
+    bookDiv.addEventListener('click', () => selectBookPage(book.id));
+    contentDiv.appendChild(bookDiv);
     contentDiv.appendChild(bookDiv);
     const DeleteButtons = document.querySelectorAll('.deleteButton');
     DeleteButtons.forEach((button) => {
@@ -85,6 +86,7 @@ function renderBookAdmin(book){
         await updateBookOnServer(updatedBook);
     });
 }
+
 export function renderBook(book) {
     contentDiv.innerHTML = '';
     contentDiv.className = 'selected-book-layout';
@@ -95,8 +97,9 @@ export function renderBook(book) {
        
         <div class="book-details">
             <h1>${book.title}</h1>
-             <div class="book-cover">
-            <img src="${book.coverImageUrl}" alt="${book.title}">
+             <div class="book-cover-container">
+            <img  class="book-cover" src="${book.coverImageUrl}" alt="${book.title}">
+                       ${!model.app.userRole || model.app.userRole === 'User' ? `<img class="bookmark" src="/images/bookmark-fill.svg" alt="bookmark">` : ''}
         </div>
             <p><strong>Author:</strong> ${book.author}</p>
             <p><strong>Genre:</strong> ${book.genre}</p>
@@ -105,16 +108,26 @@ export function renderBook(book) {
             <button class="loan-btn">Loan this Book</button>
         </div>
     `;
+    const bookmarkButton = bookDiv.querySelector(".bookmark");
+    if (bookmarkButton) {
+        bookmarkButton.addEventListener('click', (event) => {
+            event.stopPropagation();
+            if (model.app.isLoggedIn) {
+                addToFavorite(book);
+            } else {
+                alert('Please log in to add to favorites.');
+            }
+        });
+    }
     contentDiv.appendChild(bookDiv);
     const loanButton = bookDiv.querySelector('.loan-btn');
-    loanButton.addEventListener('click', () => loanBook(book)); 
+    loanButton.addEventListener('click', () => loanBook(book));
 }
-function loanBook(book){
-    if (model.app.loggedInUser == null)
-    {
+
+function loanBook(book) {
+    if (model.app.loggedInUser == null) {
         alert("Login for loan the book");
-    }
-    else {
+    } else {
         postSelectedBookToDb(book);
     }
 }

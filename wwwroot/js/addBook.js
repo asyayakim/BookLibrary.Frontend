@@ -4,7 +4,7 @@ const contentDiv = document.getElementById('content');
 export function renderAddBookPage() {
     contentDiv.innerHTML = `
         <h2>Add a New Book</h2>
-        <form id="addBookForm">
+        <form id="addBookForm" class="book-form">
             <label for="title">Title:</label>
             <input type="text" id="title" name="title" required>
             

@@ -187,7 +187,7 @@ export function renderBooksForSearch(filteredBooks) {
         let truncatedAuthor = book.author.length > 15 ? book.title.substring(0, 15) + '...' : book.author;
         bookDiv.innerHTML = `
       <img src="${book.coverImageUrl || 'images/book.svg'}" alt="${book.title}">
-            ${model.app.userRole === 'User' ? `<img class="bookmark" src="/images/bookmark-fill.svg" alt="bookmark">` : ''}
+            ${!model.app.userRole || model.app.userRole === 'User' ? `<img class="bookmark" src="/images/bookmark-fill.svg" alt="bookmark">` : ''}
             <div class="book-info">
                 <h3 title="${book.title}">${truncatedTitle}</h3>
                 <p><strong>Author:</strong> ${truncatedAuthor}</p>
