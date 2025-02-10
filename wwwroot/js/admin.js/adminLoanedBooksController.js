@@ -48,6 +48,38 @@ export async function fetchUserProfile(userId) {
         console.error('Error fetching user profile:', error);
     }
 }
+export async function deleteUser(userId) {
+    console.log(userId);
+        const userLoginAPI  = `http://localhost:5294/api/admin/${userId}`;
+        const favoriteAPI = `http://localhost:5294/api/book/deleteAllFavoriteBooks?userId=${userId}`;
+        const loanedBooksAPI = `http://localhost:5294/api/book/deleteAllLoanedBooks?userId=${userId}`;
+    try {
+        const [userResponse, favoriteResponse, loanedResponse] = await Promise.all([
+            fetch(userLoginAPI, { method: "DELETE" }),
+            fetch(favoriteAPI, { method: "DELETE" }),
+            fetch(loanedBooksAPI, { method: "DELETE" }),
+        ]);
+        if (!favoriteResponse.ok) {
+            console.warn(`Favorite books error: ${favoriteResponse.status}`);
+        }
+        if (!loanedResponse.ok) {
+            alert(`Loaned books error: ${loanedResponse.status}`);
+        }
+        if(!userResponse) {
+            alert(`User delete failed: ${userLoginAPI}`);
+            return;
+        }
+        if (userResponse.ok && favoriteResponse.ok && loanedResponse.ok) {
+            alert("User and associated data deleted successfully.");
+        } else {
+            alert("Some data could not be deleted. Check logs for more details.");
+        }
+        updateView();
+    } catch (error) {
+        console.error('Error fetching user profile:', error);
+    }
+}
+
 export async function fetchAdminViewUsers() {
     try {
         const response = await fetch(`http://localhost:5294/api/books/usersData`)

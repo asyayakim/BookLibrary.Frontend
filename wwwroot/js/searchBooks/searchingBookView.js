@@ -55,11 +55,9 @@ export function showSearchingBooks() {
         <div id="mainContainer" class="main-container">
             <button id="loadMoreBooks" class="load-more" style="display:none;">Load More Books</button>
             </div>
-       
-
         </div>
         `;
-    
+
     fetchBooks();
     let filterTagsDiv = document.getElementById('filterTags');
     filterTagsDiv.innerHTML = '';
@@ -69,7 +67,7 @@ export function showSearchingBooks() {
         let textSpan = document.createElement('span');
         textSpan.textContent = filter.label;
         let removeButton = document.createElement('button');
-        removeButton.textContent = '✕'; 
+        removeButton.textContent = '✕';
         removeButton.className = 'remove-button';
 
         removeButton.addEventListener('click', () => {
@@ -77,12 +75,10 @@ export function showSearchingBooks() {
             filter.remove();
             applyFilters(activeFilters, sortedBooks);
         });
-
         tag.appendChild(textSpan);
         tag.appendChild(removeButton);
         filterTagsDiv.appendChild(tag);
     });
-
 
     model.app.currentPage = 'searchBook';
     model.app.searchMode = false;
@@ -123,7 +119,6 @@ export function showSearchingBooks() {
             const matchesGenre = selectedGenres.length
                 ? selectedGenres.some(genre => book.genre.toLowerCase().includes(genre))
                 : true;
-
             return matchesYear && matchesGenre;
         });
         activeFilters = activeFilters.filter(filter => filter.type !== 'year');
@@ -137,11 +132,8 @@ export function showSearchingBooks() {
                 }
             });
         }
-
         applyFilters(activeFilters, sortedBooks);
-filterBooks();
-        
-        
+        filterBooks();
     });
 
     document.getElementById('filterByGenre').addEventListener('click', () => {
@@ -194,32 +186,25 @@ export function renderBooksForSearch(filteredBooks) {
         let truncatedTitle = book.title.length > 20 ? book.title.substring(0, 20) + '...' : book.title;
         let truncatedAuthor = book.author.length > 15 ? book.title.substring(0, 15) + '...' : book.author;
         bookDiv.innerHTML = `
-        <img src="${book.coverImageUrl || 'images/book.svg'}" alt="${book.title}" style="width:100%; height:auto; border-radius:5px; margin-bottom:10px;">
-             <img class="bookmark" src="/images/bookmark-fill.svg" alt="bookmark">
+      <img src="${book.coverImageUrl || 'images/book.svg'}" alt="${book.title}" style="width:100%; height:auto; border-radius:5px; margin-bottom:10px;">
+            ${model.app.userRole === 'User' ? `<img class="bookmark" src="/images/bookmark-fill.svg" alt="bookmark">` : ''}
             <div class="book-info">
                 <h3 title="${book.title}">${truncatedTitle}</h3>
                 <p><strong>Author:</strong> ${truncatedAuthor}</p>
-               ${
-            model.app.userRole === 'admin'
-                ? `<button class="deleteButton" data-id="${book.id}" data-isbn="${book.id}">Delete</button>`
-                : ''
-        }
             </div>
     `;
-        //bookDiv.addEventListener('click', () => selectBookPage(book.id));
-    
-
-
         bookDiv.addEventListener('click', () => selectBookPage(book.id));
         const bookmarkButton = bookDiv.querySelector(".bookmark");
-        bookmarkButton.addEventListener('click', (event) => {
-            event.stopPropagation();
-            if (model.app.isLoggedIn) {
-                addToFavorite(book);
-            } else {
-                alert('Please log in to add to favorites.');
-            }
-        });
+        if (bookmarkButton) {
+            bookmarkButton.addEventListener('click', (event) => {
+                event.stopPropagation();
+                if (model.app.isLoggedIn) {
+                    addToFavorite(book);
+                } else {
+                    alert('Please log in to add to favorites.');
+                }
+            });
+        }
         contentDiv.appendChild(bookDiv);
     });
     const mainContainer = document.getElementById('mainContainer');
@@ -262,6 +247,7 @@ function filterBooks() {
     });
     renderBooksForSearch(filteredBooks);
 }
+
 export function updateFilterTags(filters, sortedBooks) {
     let filterTagsDiv = document.getElementById('filterTags');
     filterTagsDiv.innerHTML = '';
@@ -277,7 +263,7 @@ export function updateFilterTags(filters, sortedBooks) {
         removeButton.className = 'remove-button';
         removeButton.textContent = '✕';
         removeButton.addEventListener('click', () => {
-            activeFilters = activeFilters.filter(f=>f !== filter);
+            activeFilters = activeFilters.filter(f => f !== filter);
             if (filter.remove) {
                 filter.remove();
             }

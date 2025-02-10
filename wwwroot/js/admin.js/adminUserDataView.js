@@ -1,4 +1,4 @@
-import {fetchUserData, fetchUserProfile} from "./adminLoanedBooksController.js";
+import {deleteUser, fetchUserData, fetchUserProfile} from "./adminLoanedBooksController.js";
 import {model} from "../model.js";
 import {updateView} from "../main.js";
 
@@ -149,9 +149,4 @@ function createBookTable(books) {
     table.appendChild(tbody);
 
     return table;
-}
-
-function deleteUser(userId) {
-    console.log(`Delete user with ID: ${userId}`);
-    // Add your delete logic here
 }
