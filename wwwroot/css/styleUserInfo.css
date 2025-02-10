@@ -57,14 +57,14 @@
     border-radius: 5px;
     font-size: 1rem;
     font-weight: 600;
-    background-color: #6c5ce7;
+    background-color: #00cec9;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 #changePersonalInformation button[type="submit"]:hover {
-    background-color: #5a4ad1;
+    background-color: #0092b3;
     transform: translateY(-2px);
 }
 

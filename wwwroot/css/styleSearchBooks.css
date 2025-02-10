@@ -102,7 +102,7 @@ button:hover {
     display: block;
     margin: 20px auto;
     padding: 10px 20px;
-    background: #b1541e;
+    background: #0092b3;
     color: #fff;
     font-size: 16px;
     border: none;
@@ -112,7 +112,7 @@ button:hover {
 }
 
 .load-more:hover {
-    background: #7a3a14;
+    background: #000000;
 }
 
 .sort-by-year.active + .sort-options,

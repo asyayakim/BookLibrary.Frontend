@@ -53,7 +53,7 @@ export function renderBooks(books) {
             const isFavorite = model.app.favorite && model.app.favorite.includes(book.isbn);
             const bookmarkIcon = isFavorite ? "/images/bookmark-check-fill.svg" : "/images/bookmark-fill.svg";
             bookDiv.innerHTML = `
-                <img src="${book.coverImageUrl || 'images/book.svg'}" alt="${book.title}" style="width:100%; height:auto; border-radius:5px; margin-bottom:10px;">
+                <img src="${book.coverImageUrl || 'images/book.svg'}" alt="${book.title}">
                 <img class="bookmark" src=" ${bookmarkIcon}" alt="bookmark">
                 <div class="book-info">
                     <h3 title="${book.title}">${truncatedTitle}</h3>

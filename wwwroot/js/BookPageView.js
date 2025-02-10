@@ -36,7 +36,9 @@ function renderBookAdmin(book){
             <form id="editBookForm">
                 <label>Title:</label>
                 <input type="text" id="title" value="${book.title}" required>
-
+<div class="book-cover">
+            <img src="${book.coverImageUrl}" alt="${book.title}">
+        </div>
                 <label>Author:</label>
                 <input type="text" id="author" value="${book.author}" required>
 
@@ -52,9 +54,6 @@ function renderBookAdmin(book){
                 <label>Cover Image URL:</label>
                 <input type="url" id="coverImageUrl" value="${book.coverImageUrl}">
                 <button type="submit" class="save-btn">Save changes</button>
-                <div class="book-cover">
-            <img src="${book.coverImageUrl}" alt="${book.title}">
-        </div>
             </form>
                 <button class="deleteButton" data-id="${book.id}">Delete</button>
         </div>
@@ -96,14 +95,14 @@ export function renderBook(book) {
        
         <div class="book-details">
             <h1>${book.title}</h1>
+             <div class="book-cover">
+            <img src="${book.coverImageUrl}" alt="${book.title}">
+        </div>
             <p><strong>Author:</strong> ${book.author}</p>
             <p><strong>Genre:</strong> ${book.genre}</p>
             <p><strong>Year:</strong> ${book.year}</p>
             <p><strong>ISBN:</strong> ${book.isbn}</p>
             <button class="loan-btn">Loan this Book</button>
-        </div>
-         <div class="book-cover">
-            <img src="${book.coverImageUrl}" alt="${book.title}">
         </div>
     `;
     contentDiv.appendChild(bookDiv);

@@ -73,7 +73,6 @@ main {
     text-align: center;
 }
 
-
 .books-list-view {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive grid */
@@ -104,8 +103,8 @@ main {
     margin: 0.3rem 0;
 }
 .book img {
-    width: 100%;
-    height: auto;
+    width: 100px;
+    height: 145px;
     border-radius: 5px;
     margin-bottom: 10px;
 }
@@ -139,7 +138,7 @@ main {
 footer {
     text-align: center;
     padding: 1rem;
-    background-color: #1e293b;
+    background-color: #000000;
     color: white;
     margin-top: auto;
 }
