@@ -85,7 +85,7 @@ button {
 }
 
 button:hover {
-    background: #0092b3;
+    background: #000000;
 }
 .books-list {
     display: grid;
@@ -174,7 +174,7 @@ button:hover {
 }
 
 .filter-tag {
-    background-color: #e75c5c;
+    background-color: rgb(38, 38, 38);
     color: #ffffff;
     padding-left: 20px;
     border-radius: 25px;
@@ -184,7 +184,7 @@ button:hover {
 }
 
 .filter-tag:hover {
-    background-color: #7a3a14;
+    background-color: #000000;
 }
 
 .filter-tag .remove-button {

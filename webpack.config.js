@@ -13,7 +13,9 @@ module.exports = {
         static: {
             directory: path.resolve(__dirname, 'wwwroot'),
         },
+        allowedHosts: 'all',
         port: 8080,
+        host: '0.0.0.0',
         open: true,
         hot: true,
     },

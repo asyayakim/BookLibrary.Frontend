@@ -1,6 +1,7 @@
 import {model} from "../model.js";
 import Config from "../utils/config.js";
-import {fetchAdminViewUsers} from "./adminLoanedBooksController.js";
+import {fetchAdminViewUsers, fetchUserProfile} from "./adminLoanedBooksController.js";
+import {selectBookPage} from "../viewLibraryPage.js";
 
 export async function renderAdminViewUsers() {
     document.getElementById('content').innerHTML = `
@@ -11,13 +12,13 @@ export async function renderAdminViewUsers() {
             <button class="sort">Sort users by</button>
         </div>
         </div>
-        <div id="viewUsers" class="viewUsers"></div>
+        <div id="viewSearch" class="viewSearch"></div>
         </div>
         `;
     await fetchAdminViewUsers();
 }
 export function renderDbData(books) {
-    const contentDiv = document.getElementById('viewUsers');
+    const contentDiv = document.getElementById('viewSearch');
     contentDiv.className = 'books-list-Admin'
     books.forEach(book => {
         const bookDiv = document.createElement('div');
@@ -30,9 +31,17 @@ export function renderDbData(books) {
                 <p><strong>ISBN:</strong> ${book.isbn}</p>
                 <p><strong>Loan Date:</strong>${new Date(book.loanDate).toLocaleDateString()}</p>
                 <p><strong>UserId:</strong> ${book.userId}</p>
-                <button data-id="${book.userId}">User info</button>
+                <button class = "user-info" data-id="${book.userId}">User info</button>
             </div>
     `;
         contentDiv.appendChild(bookDiv);
+    });
+    const userInfo = document.querySelectorAll('.user-info');
+    userInfo.forEach((button) => {
+        button.addEventListener('click', async () => {
+            const id = button.getAttribute('data-id');
+            console.log(id);
+            await fetchUserProfile(id);
+        });
     });
 }
