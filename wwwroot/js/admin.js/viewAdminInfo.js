@@ -1,5 +1,6 @@
 import {registerNewUser} from "../registerNewUserController.js";
 import {fetchFavoriteBooks, showLoanedBooks} from "../userInfo/viewUserInfoController.js";
+import {changeUsernamePassword} from "./adminLoanedBooksController.js";
 
 export async function viewAdminInfo() {
     const contentDiv = document.getElementById('content');
@@ -12,19 +13,26 @@ export async function viewAdminInfo() {
             <input type="password" id="password" name="password" required>
             <label for="confirmPassword">Confirm Password*:</label>
             <input type="password" id="confirmPassword" name="confirmPassword" required>
+            
+                  <p id="error-message" style="color: red; display: none;">Passwords do not match!</p>
             <div class = "registerButtons">
             <button type="submit">Confirm</button>
              </div>
         </form>
-<!--        <div class="book-info-layout">-->
-<!--        <div id="bookLoanedByUser"></div>-->
-<!--        <div id="favoriteBooks"></div>-->
         </div>
     `;
     document.getElementById('changePersonalInformation').addEventListener('submit', async (event) => {
         event.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-        await registerNewUser(username, password);
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const errorMessage = document.getElementById('error-message');
+        if (password !== confirmPassword) {
+            errorMessage.style.display = 'block';
+            return;
+        } else {
+            errorMessage.style.display = 'none';
+        }
+        await changeUsernamePassword(username, password);
     });
 }

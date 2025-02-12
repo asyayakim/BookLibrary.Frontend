@@ -110,3 +110,25 @@ export async function deleteBook(id) {
 }
 
 window.deleteBook = deleteBook;
+export async function changeUsernamePassword(username, password){
+    console.log(username, password);
+    try {
+        const role = model.app.userRole;
+        const userId = model.app.loggedInUser;
+        console.log(userId, role);
+        const response = await fetch(`${Config.apiBaseUrl}/userData/changeUserData`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ UserName: username, Password: password, Id: userId, Role: role }),
+        });
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Server response:', errorText);
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        alert('User updated successfully!');
+    } catch (error) {
+        console.error('Detailed error:', error);
+        alert(`Failed to update user: ${error.message}`);
+    }
+}

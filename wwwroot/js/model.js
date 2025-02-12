@@ -5,7 +5,7 @@ export const model = {
         currentBookId: null,
         isLoggedIn: false,
         userId: null,
-        role: null,
+        userRole: null,
         filteredBooks: null,
         token: null,
         searchMode: false,
