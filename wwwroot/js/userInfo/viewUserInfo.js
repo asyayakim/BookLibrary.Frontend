@@ -3,6 +3,7 @@ import {fetchFavoriteBooks, removeFromFavorite, returnBook, showLoanedBooks} fro
 import {model} from "../model.js";
 import {addToFavorite} from "../BookPageController.js";
 import {selectBookPage} from "../viewLibraryPage.js";
+import {changeUsernamePassword} from "../admin.js/adminLoanedBooksController.js";
 
 export async function viewUserInfo() {
     const contentDiv = document.getElementById('content');
@@ -28,7 +29,7 @@ export async function viewUserInfo() {
         event.preventDefault();
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
-        await registerNewUser(username, password);
+        await changeUsernamePassword(username, password);
     });
     await showLoanedBooks();
     await fetchFavoriteBooks();
